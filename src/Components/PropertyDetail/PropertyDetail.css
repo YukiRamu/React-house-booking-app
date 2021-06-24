@@ -12,4 +12,9 @@
       -ms-flex-align: center;
           align-items: center;
 }
+
+.PropertyDetailContainer .imgPanel .imgItem img {
+  width: 100%;
+  height: 100%;
+}
 /*# sourceMappingURL=PropertyDetail.css.map */

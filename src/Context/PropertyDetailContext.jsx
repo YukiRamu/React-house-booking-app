@@ -16,6 +16,11 @@ const PropertyDetailProvider = (props) => {
     API_KEY: "440d17dae2610ab733684ec26af58173"
   };
 
+  const amadeusAPI = {
+    ENDPOINT: "https://test.api.amadeus.com/",
+    API_KEY: "    mfeIlsGcX7Fxd7VzGzNWxQ01sf783MJt"
+  };
+
   //PropertyDetailReducer
   const initialState = {
     property: [],
