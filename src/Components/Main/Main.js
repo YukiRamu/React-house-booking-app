@@ -1,5 +1,8 @@
-import React from 'react';
+import React from "react";
 import "./Main.css";
+
+import Header from "../Header";
+import Home from "../Home";
 
 //This is our parent component (Yumi & Yuki)
 
@@ -7,12 +10,10 @@ const Main = () => {
   return (
     <>
       {/* Header */}
-
+      <Header />
       {/* Main container */}
-      <h1>React House Booking Website</h1>
-
+      <Home />
       {/* Footer */}
-
     </>
   );
 };
