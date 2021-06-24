@@ -24,22 +24,25 @@ const PropertyDetail = () => {
             </Button>
           </div>
 
-          <div className="img">
-            <Grid
-              h="200px"
-              templateRows="repeat(2, 1fr)"
-              templateColumns="repeat(5, 1fr)"
-              gap={4}
-            >
-              <GridItem rowSpan={2} colSpan={1} bg="tomato"><img src={propertyDetail.roomImg[0].previewURL} alt="img1" /></GridItem>
-              <GridItem colSpan={2} bg="papayawhip" />
-              <GridItem colSpan={2} bg="papayawhip" />
-              <GridItem colSpan={1} bg="tomato" />
-              <GridItem colSpan={1} bg="tomato" />
-              <GridItem colSpan={1} bg="tomato" />
-              <GridItem colSpan={1} bg="tomato" />
-            </Grid>
-          </div>
+{/* Image Panel */}
+          <Grid
+            h="200px"
+            templateRows="repeat(2, 1fr)"
+            templateColumns="repeat(5, 1fr)"
+            gap={4}
+            className="imgPanel"
+          >
+            <GridItem rowSpan={2} colSpan={1} bg="tomato" className="imgItem">
+              <img src={propertyDetail.roomImg[0].largeImageURL} alt="img1" />
+            </GridItem>
+            <GridItem colSpan={2} bg="papayawhip" />
+            <GridItem colSpan={2} bg="papayawhip" />
+            <GridItem colSpan={1} bg="tomato" />
+            <GridItem colSpan={1} bg="tomato" />
+            <GridItem colSpan={1} bg="tomato" />
+            <GridItem colSpan={1} bg="tomato" />
+          </Grid>
+
         </div>
       ) : (<h1>Loading....</h1>)}
     </>
