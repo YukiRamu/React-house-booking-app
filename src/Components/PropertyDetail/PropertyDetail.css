@@ -1,3 +1,11 @@
+.chakra-divider {
+  margin-top: 2rem;
+}
+
+.detailTitle {
+  margin: 1rem 0;
+}
+
 .PropertyDetailContainer {
   width: 90%;
   margin: auto;
@@ -40,10 +48,6 @@
   width: 100%;
   height: 100%;
   border-radius: 5%;
-}
-
-.PropertyDetailContainer .chakra-divider {
-  margin-top: 2rem;
 }
 
 .PropertyDetailContainer .amenityPanel .hotel,

@@ -8,11 +8,12 @@ import { PropertyDetailProvider } from "../Context/PropertyDetailContext";
 const AppRouter = () => {
   return (
     <>
+      {/* Add all providers on the top level */}
       <PropertyDetailProvider>
         {/* App Router : added main conponent for testing purpose. please rewrite this with router*/}
-        {/* <ScrollToTop> */}
+        <ScrollToTop>
           <Main />
-        {/* </ScrollToTop> */}
+        </ScrollToTop>
         {/* App Router : added main conponent for testing purpose. please rewrite this with router*/}
       </PropertyDetailProvider>
     </>

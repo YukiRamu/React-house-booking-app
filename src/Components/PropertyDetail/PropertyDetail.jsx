@@ -66,7 +66,7 @@ const PropertyDetail = () => {
           </div>
 
           {/* amenity */}
-          <Text fontSize="2xl">Amenities</Text>
+          <Text fontSize="2xl" className="detailTitle">Amenities</Text>
           <Grid
             templateColumns="repeat(2, 1fr)"
             gap={6}
@@ -93,35 +93,45 @@ const PropertyDetail = () => {
           <Divider bg="lightgray" />
 
           {/* Room */}
-          <Text fontSize="2xl">Sleeping Arrangements</Text>
-          <Grid
-            templateColumns="repeat(5,1fr)"
-            gap={4}
-            className="roomTypePanel">
+          <Text fontSize="2xl" className="detailTitle">Sleeping Arrangements</Text>
+          {propertyDetail.property.propertyDescription.roomTypeNames.length !== 0 ? (
+            <Grid
+              templateColumns="repeat(5,1fr)"
+              gap={4}
+              className="roomTypePanel">
 
-            {(() => {
-              let roomArr = [];
-              const html = [];
-              roomArr = propertyDetail.property.propertyDescription.roomTypeNames.map(e => e.split(","));
-              for (let i = 0; i < roomArr.length; i++) {
-                html.push(
-                  <Box className="roomInfo" w="100%">
-                    <p className="room"> {roomArr[i][0]}</p>
-                    <p><IoBedSharp></IoBedSharp> {roomArr[i][1]}</p>
-                    <p><MdSmokeFree></MdSmokeFree> {roomArr[i][2]}</p>
-                  </Box>
-                );
-              }
-              return html;
-            })()}
-          </Grid>
+              {(() => {
+                let roomArr = [];
+                const html = [];
+                roomArr = propertyDetail.property.propertyDescription.roomTypeNames.map(e => e.split(","));
+                for (let i = 0; i < roomArr.length; i++) {
+                  html.push(
+                    <Box className="roomInfo" w="100%" key={i}>
+                      <p className="room"> {roomArr[i][0]}</p>
+                      <p><IoBedSharp></IoBedSharp> {roomArr[i][1]}</p>
+                      <p><MdSmokeFree></MdSmokeFree> {roomArr[i][2]}</p>
+                    </Box>
+                  );
+                }
+                return html;
+              })()}
+            </Grid>
+          ) : (<p>No information available :(</p>)}
+
 
           {/* Review */}
-          <Text fontSize="2xl">Review</Text>
+          <Text fontSize="2xl" className="detailTitle">Review</Text>
 
+          {/* Transportation : tab */}
+          <Text fontSize="2xl" className="detailTitle">Transportation</Text>
+
+
+          {/* Modal pop up */}
           <Button colorScheme="teal" size="lg" className="availBtn">
             Check Availability
           </Button>
+
+
 
         </div>
       ) : (
