@@ -4,11 +4,20 @@
   position: relative;
   min-height: 90vh;
   margin-bottom: 2rem;
+  padding-top: 50px; //to be adjusted
   .title {
     display: flex;
     justify-content: space-around;
     flex-direction: row;
     align-items: center;
+    margin: 1rem;
+  }
+  .address {
+    text-align: center;
+    margin-bottom: 1rem;
+    svg {
+      display: inline-block;
+    }
   }
   .imgPanel {
     height: 100%;
@@ -63,6 +72,19 @@
       }
     }
   }
+  .availBtn {
+    position: sticky;
+    display: block;
+    bottom: 20px;
+    margin-left: auto;
+  }
+}
+.loading {
+  font-size: 2rem;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .chakra-spinner {
   position: absolute;

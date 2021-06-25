@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { Text, Button, ButtonGroup, Spinner, Divider, Feature, Box, Stack, HStack, Heading, VStack, Grid, GridItem, Avatar, AvatarBadge, AvatarGroup } from "@chakra-ui/react";
-import { FaHeart, FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import { MdSmokeFree } from "react-icons/md";
-import { IoFlowerOutline, IoFlowerSharp, IoBedSharp } from "react-icons/io5";
+import { IoFlowerOutline, IoFlowerSharp, IoBedSharp, IoLocationSharp } from "react-icons/io5";
 import "./PropertyDetail.css";
 import PropertyDetailContext from '../../Context/PropertyDetailContext';
 
@@ -20,13 +20,13 @@ const PropertyDetail = () => {
           {/* ===== Property Title ===== */}
           <div className="title">
             <Text fontSize="4xl">{propertyDetail.property.propertyDescription.name}</Text>
-            <Button colorScheme="teal" variant="ghost">
+            <Button colorScheme="teal" size="md">
               <FaHeart /> Save
             </Button>
           </div>
 
           <p className="address">
-            {propertyDetail.property.propertyDescription.address.fullAddress}
+            <IoLocationSharp /> {propertyDetail.property.propertyDescription.address.fullAddress}
           </p>
 
           {/* ===== Image Panel ===== */}
@@ -119,9 +119,14 @@ const PropertyDetail = () => {
           {/* Review */}
           <Text fontSize="2xl">Review</Text>
 
+          <Button colorScheme="teal" size="lg" className="availBtn">
+            Check Availability
+          </Button>
+
         </div>
       ) : (
         <div className="PropertyDetailContainer">
+          <p className="loading">Loading... Hang on a sec...</p>
           <Spinner
             thickness="4px"
             speed="0.65s"
