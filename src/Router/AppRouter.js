@@ -11,9 +11,9 @@ const AppRouter = () => {
       {/* Add all providers on the top level */}
       <PropertyDetailProvider>
         {/* App Router : added main conponent for testing purpose. please rewrite this with router*/}
-        <ScrollToTop>
-          <Main />
-        </ScrollToTop>
+        {/* <ScrollToTop> */}
+        <Main />
+        {/* </ScrollToTop> */}
         {/* App Router : added main conponent for testing purpose. please rewrite this with router*/}
       </PropertyDetailProvider>
     </>
