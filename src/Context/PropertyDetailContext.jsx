@@ -9,6 +9,7 @@ const PropertyDetailProvider = (props) => {
   /* PropertyDetailReducer */
   const initialState = {
     property: [],
+    transportation: [],
     host: [],
     roomImg: []
   };
@@ -19,7 +20,7 @@ const PropertyDetailProvider = (props) => {
   const detailParam = {
     method: 'GET',
     url: 'https://hotels4.p.rapidapi.com/properties/get-details',
-    params: { id: '476997' }, //will get id from Yumi
+    params: { id: '200301' }, //will get hotel id from Yumi
     headers: {
       'x-rapidapi-key': 'c9968e2987mshd0b8344da831c28p10df23jsn55a0df610ca7',
       'x-rapidapi-host': 'hotels4.p.rapidapi.com'
@@ -32,6 +33,7 @@ const PropertyDetailProvider = (props) => {
       .then((response) => {
         console.log(response.data);
         dispatchPropertyDetail({ type: "PROPERTYDETAIL_FETCH_SUCCESS", payload: response.data.data.body });
+        dispatchPropertyDetail({ type: "TRANSPORTATION_FETCH_SUCCESS", payload: response.data.data.transportation });
       })
       .catch((error) => {
         console.error(`Failed to fetch property detail data. Error= ${error}`);

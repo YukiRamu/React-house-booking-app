@@ -14,6 +14,11 @@ const PropertyDetailReducer = (state, action) => {
         ...state,
         property: action.payload
       };
+    case "TRANSPORTATION_FETCH_SUCCESS":
+      return {
+        ...state,
+        transportation: action.payload
+      };
 
     default:
       Error("Action type is not defined");
