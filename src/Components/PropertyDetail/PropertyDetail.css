@@ -1,3 +1,11 @@
+.PropertyDetailContainer {
+  width: 90%;
+  margin: auto;
+  position: relative;
+  min-height: 90vh;
+  margin-bottom: 2rem;
+}
+
 .PropertyDetailContainer .title {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -13,8 +21,68 @@
           align-items: center;
 }
 
+.PropertyDetailContainer .imgPanel {
+  height: 100%;
+}
+
 .PropertyDetailContainer .imgPanel .imgItem img {
   width: 100%;
   height: 100%;
+  border-radius: 5%;
+}
+
+.PropertyDetailContainer .chakra-divider {
+  margin-top: 2rem;
+}
+
+.PropertyDetailContainer .amenityPanel .hotel,
+.PropertyDetailContainer .amenityPanel .room {
+  border-radius: 2vw;
+  padding: 1rem;
+  border: 0.1rem groove lightgrey;
+}
+
+.PropertyDetailContainer .amenityPanel .hotel p,
+.PropertyDetailContainer .amenityPanel .room p {
+  text-align: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 1rem auto;
+  padding: 0.5rem;
+  border-bottom: 0.1rem solid lightgrey;
+}
+
+.PropertyDetailContainer .amenityPanel .hotel ul,
+.PropertyDetailContainer .amenityPanel .room ul {
+  list-style: none;
+}
+
+.PropertyDetailContainer .amenityPanel .hotel ul li svg,
+.PropertyDetailContainer .amenityPanel .room ul li svg {
+  display: inline-block;
+}
+
+.PropertyDetailContainer .roomTypePanel .roomInfo {
+  border: 0.1rem solid gray;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 1vw;
+}
+
+.PropertyDetailContainer .roomTypePanel .roomInfo .room {
+  font-size: 1.3rem;
+}
+
+.PropertyDetailContainer .roomTypePanel .roomInfo p svg {
+  display: inline-block;
+}
+
+.chakra-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 /*# sourceMappingURL=PropertyDetail.css.map */

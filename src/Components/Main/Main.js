@@ -14,7 +14,6 @@ const Main = () => {
           {/* Header */}
 
           {/* Main container */}
-          <h1>React Property Booking Website</h1>
 
           {/* Detail page for testing purpose, will be deleted once the router is ready */}
           <PropertyDetail />
