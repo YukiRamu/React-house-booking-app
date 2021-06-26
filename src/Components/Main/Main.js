@@ -1,8 +1,11 @@
-import React from 'react';
+import React from "react";
 import "./Main.css";
-import PropertyDetail from '../PropertyDetail/PropertyDetail';
+import PropertyDetail from "../PropertyDetail/PropertyDetail";
 import { ChakraProvider } from "@chakra-ui/react";
-import FadeIn from 'react-fade-in';
+import FadeIn from "react-fade-in";
+
+import Header from "../Header";
+import Home from "../Home";
 
 //This is our parent component (Yumi & Yuki)
 
@@ -18,7 +21,6 @@ const Main = () => {
           {/* Detail page for testing purpose, will be deleted once the router is ready */}
           <PropertyDetail />
           {/* Footer */}
-
         </FadeIn>
       </ChakraProvider>
     </>

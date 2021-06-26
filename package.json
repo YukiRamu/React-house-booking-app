@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@chakra-ui/icons": "^1.0.13",
     "@chakra-ui/react": "^1.6.4",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
@@ -12,6 +13,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "framer-motion": "^4.1.17",
+    "node": "^16.3.0",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
     "react-datepicker": "^4.1.1",
@@ -22,6 +24,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "redux": "^4.1.0",
+    "sass": "^1.35.1",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
