@@ -16,8 +16,12 @@ const HotelLists = () => {
                 name={result.name}
                 rating={result.guestReviews ? result.guestReviews.rating : ""}
                 total={result.guestReviews ? result.guestReviews.total : ""}
-                price={result.ratePlan.price.current}
-                imageUrl={result.optimizedThumbUrls.srpDesktop}
+                price={result.ratePlan ? result.ratePlan.price.current : ""}
+                imageUrl={
+                  result.optimizedThumbUrls
+                    ? result.optimizedThumbUrls.srpDesktop
+                    : ""
+                }
               />
             </div>
           );

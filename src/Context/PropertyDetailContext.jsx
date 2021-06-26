@@ -1,39 +1,77 @@
 import React, { useReducer, createContext, useEffect } from 'react';
 import PropertyDetailReducer from '../Reducer/PropertyDetailReducer';
+import axios from "axios";
 
 const PropertyDetailContext = createContext();
 
 const PropertyDetailProvider = (props) => {
 
-  const ImgAPI = {
-    ENDPOINT: "https://pixabay.com/api/",
-    API_KEY: "22112901-d9ab6e677acd5ee1c4e0a636d"
-  };
-
-  //Under consideration, not sure if I use this api
-  const BookingAPI = {
-    ENDPOINT: "https://api.test.hotelbeds.com/",
-    API_KEY: "440d17dae2610ab733684ec26af58173"
-  };
-
-  const amadeusAPI = {
-    ENDPOINT: "https://test.api.amadeus.com/",
-    API_KEY: "    mfeIlsGcX7Fxd7VzGzNWxQ01sf783MJt"
-  };
-
-  //PropertyDetailReducer
+  /* PropertyDetailReducer */
   const initialState = {
     property: [],
+    transportation: [],
     host: [],
     roomImg: []
   };
 
   const [propertyDetail, dispatchPropertyDetail] = useReducer(PropertyDetailReducer, initialState);
 
+  /* Get Hotel Detail */
+  const detailParam = {
+    method: 'GET',
+    url: 'https://hotels4.p.rapidapi.com/properties/get-details',
+    params: { id: '200301' }, //will get hotel id from Yumi
+    headers: {
+      'x-rapidapi-key': 'c9968e2987mshd0b8344da831c28p10df23jsn55a0df610ca7',
+      'x-rapidapi-host': 'hotels4.p.rapidapi.com'
+    }
+  };
+
+  useEffect(() => {
+    axios
+      .request(detailParam)
+      .then((response) => {
+        console.log(response.data);
+        dispatchPropertyDetail({ type: "PROPERTYDETAIL_FETCH_SUCCESS", payload: response.data.data.body });
+        dispatchPropertyDetail({ type: "TRANSPORTATION_FETCH_SUCCESS", payload: response.data.transportation.transportLocations });
+      })
+      .catch((error) => {
+        console.error(`Failed to fetch property detail data. Error= ${error}`);
+      });
+  }, []);
+
+  /* Get Review */
+  // const reviewParam = {
+  //   method: 'GET',
+  //   url: 'https://hotels4.p.rapidapi.com/reviews/list',
+  //   params: { id: '634418464', page: '1', loc: 'en_US' }, //will get id from Yumi
+  //   headers: {
+  //     'x-rapidapi-key': 'c9968e2987mshd0b8344da831c28p10df23jsn55a0df610ca7',
+  //     'x-rapidapi-host': 'hotels4.p.rapidapi.com'
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   axios
+  //     .request(reviewParam)
+  //     .then((response) => {
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(`Failed to fetch review data. Error= ${error}`);
+  //     });
+  // }, []);
+
   // useEffect(() => {
   //   //get state from Yumi and pass it to the reducer
   //   dispatchPropertyDetail({ type: "SHOW_PROPERTY", payload: "state" });
   // }, []);
+
+  /* Fake Property Images */
+  const ImgAPI = {
+    ENDPOINT: "https://pixabay.com/api/",
+    API_KEY: "22112901-d9ab6e677acd5ee1c4e0a636d"
+  };
 
   useEffect(() => {
     try {
@@ -43,7 +81,12 @@ const PropertyDetailProvider = (props) => {
           throw imgRes.statusText;
         } else {
           const imgData = await imgRes.json();
-          dispatchPropertyDetail({ type: "IMG_FETCH_SUCCESS", payload: imgData });
+          console.log(imgData.hits);
+          let data = []; //pick only 7 photos
+          for (let i = 0; i < 7; i++) {
+            data.push(imgData.hits[i]);
+          }
+          dispatchPropertyDetail({ type: "IMG_FETCH_SUCCESS", payload: data });
         }
       })();
     } catch (error) {

@@ -7,10 +7,18 @@ const PropertyDetailReducer = (state, action) => {
     case "IMG_FETCH_SUCCESS":
       return {
         ...state,
-        roomImg: action.payload.hits
+        roomImg: action.payload
       };
-    case "SHOW_PROPERTY":
-      return state;
+    case "PROPERTYDETAIL_FETCH_SUCCESS":
+      return {
+        ...state,
+        property: action.payload
+      };
+    case "TRANSPORTATION_FETCH_SUCCESS":
+      return {
+        ...state,
+        transportation: action.payload
+      };
 
     default:
       Error("Action type is not defined");

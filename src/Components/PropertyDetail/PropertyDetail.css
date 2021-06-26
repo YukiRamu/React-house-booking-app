@@ -1,3 +1,20 @@
+.chakra-divider {
+  margin-top: 2rem;
+}
+
+.detailTitle {
+  margin: 1rem 0;
+}
+
+.PropertyDetailContainer {
+  width: 90%;
+  margin: auto;
+  position: relative;
+  min-height: 90vh;
+  margin-bottom: 2rem;
+  padding-top: 50px;
+}
+
 .PropertyDetailContainer .title {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -11,10 +28,199 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin: 1rem;
+}
+
+.PropertyDetailContainer .address {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.PropertyDetailContainer .address svg {
+  display: inline-block;
+}
+
+.PropertyDetailContainer .imgPanel {
+  height: 100%;
 }
 
 .PropertyDetailContainer .imgPanel .imgItem img {
   width: 100%;
   height: 100%;
+  border-radius: 5%;
+}
+
+.PropertyDetailContainer .amenityPanel .hotel,
+.PropertyDetailContainer .amenityPanel .room {
+  border-radius: 2vw;
+  padding: 1rem;
+  border: 0.1rem groove lightgrey;
+}
+
+.PropertyDetailContainer .amenityPanel .hotel p,
+.PropertyDetailContainer .amenityPanel .room p {
+  text-align: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 1rem auto;
+  padding: 0.5rem;
+  border-bottom: 0.1rem solid lightgrey;
+}
+
+.PropertyDetailContainer .amenityPanel .hotel ul,
+.PropertyDetailContainer .amenityPanel .room ul {
+  list-style: none;
+}
+
+.PropertyDetailContainer .amenityPanel .hotel ul li svg,
+.PropertyDetailContainer .amenityPanel .room ul li svg {
+  display: inline-block;
+}
+
+.PropertyDetailContainer .roomTypePanel .roomInfo {
+  border: 0.1rem solid gray;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 1vw;
+}
+
+.PropertyDetailContainer .roomTypePanel .roomInfo .room {
+  font-size: 1.3rem;
+}
+
+.PropertyDetailContainer .roomTypePanel .roomInfo p svg {
+  display: inline-block;
+}
+
+.PropertyDetailContainer .availBtn {
+  position: -webkit-sticky;
+  position: sticky;
+  display: block;
+  bottom: 20px;
+  margin-left: auto;
+}
+
+.modalContainer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.689);
+  top: 0;
+  left: 0;
+  z-index: 2000;
+}
+
+.modalContainer .modalContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: white;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-height: 80vh;
+  border-radius: 3vw;
+  padding: 3rem;
+  overflow: auto;
+}
+
+.modalContainer .modalContent p {
+  margin-bottom: 1rem;
+}
+
+.modalContainer .modalContent .clsBtn {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  font-size: 2rem;
+  background-color: transparent;
+  border: none;
+}
+
+.modalContainer .modalContent .clsBtn:hover {
+  color: teal;
+}
+
+.modalContainer .modalContent form .dateSelect {
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.modalContainer .modalContent form .chakra-form-control {
+  margin-bottom: 1rem;
+}
+
+.modalContainer .modalContent form .chakra-form-control .react-datepicker__input-container input {
+  border: 0.1rem solid lightgrey;
+  border-radius: var(--chakra-radii-md);
+  padding: 0.5rem;
+}
+
+.modalContainer .modalContent form .chakra-form-control .react-datepicker__input-container input:focus {
+  border-color: teal;
+  outline: none;
+}
+
+.modalContainer .modalContent form .chakra-form-control .guestNumInput,
+.modalContainer .modalContent form .chakra-form-control .roomTypeInput {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  grid-gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.modalContainer .modalContent form .submitBtn {
+  border: 0.1rem solid teal;
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+}
+
+.modalContainer .modalContent form .submitBtn:hover {
+  background-color: teal;
+  color: white;
+}
+
+.loading {
+  font-size: 2rem;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.chakra-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 /*# sourceMappingURL=PropertyDetail.css.map */
