@@ -33,7 +33,7 @@ const PropertyDetailProvider = (props) => {
       .then((response) => {
         console.log(response.data);
         dispatchPropertyDetail({ type: "PROPERTYDETAIL_FETCH_SUCCESS", payload: response.data.data.body });
-        dispatchPropertyDetail({ type: "TRANSPORTATION_FETCH_SUCCESS", payload: response.data.data.transportation });
+        dispatchPropertyDetail({ type: "TRANSPORTATION_FETCH_SUCCESS", payload: response.data.transportation.transportLocations });
       })
       .catch((error) => {
         console.error(`Failed to fetch property detail data. Error= ${error}`);
