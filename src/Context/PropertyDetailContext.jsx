@@ -1,44 +1,55 @@
-import React, { useReducer, createContext, useEffect } from 'react';
-import PropertyDetailReducer from '../Reducer/PropertyDetailReducer';
+import React, { useReducer, createContext, useEffect } from "react";
+import PropertyDetailReducer from "../Reducer/PropertyDetailReducer";
 import axios from "axios";
 
 const PropertyDetailContext = createContext();
 
 const PropertyDetailProvider = (props) => {
-
   /* PropertyDetailReducer */
   const initialState = {
     property: [],
     transportation: [],
     host: [],
-    roomImg: []
+    roomImg: [],
+    hotelId: "",
   };
 
-  const [propertyDetail, dispatchPropertyDetail] = useReducer(PropertyDetailReducer, initialState);
+  const [propertyDetail, dispatchPropertyDetail] = useReducer(
+    PropertyDetailReducer,
+    initialState
+  );
 
   /* Get Hotel Detail */
   const detailParam = {
-    method: 'GET',
-    url: 'https://hotels4.p.rapidapi.com/properties/get-details',
-    params: { id: '200301' }, //will get hotel id from Yumi
+    method: "GET",
+    url: "https://hotels4.p.rapidapi.com/properties/get-details",
+    params: { id: propertyDetail.hotelId }, //will get hotel id from Yumi
     headers: {
-      'x-rapidapi-key': 'c9968e2987mshd0b8344da831c28p10df23jsn55a0df610ca7',
-      'x-rapidapi-host': 'hotels4.p.rapidapi.com'
-    }
+      "x-rapidapi-key": "c9968e2987mshd0b8344da831c28p10df23jsn55a0df610ca7",
+      "x-rapidapi-host": "hotels4.p.rapidapi.com",
+    },
   };
 
   useEffect(() => {
+    if (propertyDetail.hotelId === "") return;
+
     axios
       .request(detailParam)
       .then((response) => {
         console.log(response.data);
-        dispatchPropertyDetail({ type: "PROPERTYDETAIL_FETCH_SUCCESS", payload: response.data.data.body });
-        dispatchPropertyDetail({ type: "TRANSPORTATION_FETCH_SUCCESS", payload: response.data.transportation.transportLocations });
+        dispatchPropertyDetail({
+          type: "PROPERTYDETAIL_FETCH_SUCCESS",
+          payload: response.data.data.body,
+        });
+        dispatchPropertyDetail({
+          type: "TRANSPORTATION_FETCH_SUCCESS",
+          payload: response.data.transportation.transportLocations,
+        });
       })
       .catch((error) => {
         console.error(`Failed to fetch property detail data. Error= ${error}`);
       });
-  }, []);
+  }, [propertyDetail.hotelId]);
 
   /* Get Review */
   // const reviewParam = {
@@ -70,13 +81,15 @@ const PropertyDetailProvider = (props) => {
   /* Fake Property Images */
   const ImgAPI = {
     ENDPOINT: "https://pixabay.com/api/",
-    API_KEY: "22112901-d9ab6e677acd5ee1c4e0a636d"
+    API_KEY: "22112901-d9ab6e677acd5ee1c4e0a636d",
   };
 
   useEffect(() => {
     try {
       (async () => {
-        const imgRes = await fetch(`${ImgAPI.ENDPOINT}?key=${ImgAPI.API_KEY}&q="room+house"&image_type=photo&pretty=true`);
+        const imgRes = await fetch(
+          `${ImgAPI.ENDPOINT}?key=${ImgAPI.API_KEY}&q="room+house"&image_type=photo&pretty=true`
+        );
         if (!imgRes.ok) {
           throw imgRes.statusText;
         } else {
@@ -96,10 +109,12 @@ const PropertyDetailProvider = (props) => {
 
   return (
     <>
-      <PropertyDetailContext.Provider value={{
-        propertyDetail,
-        dispatchPropertyDetail
-      }}>
+      <PropertyDetailContext.Provider
+        value={{
+          propertyDetail,
+          dispatchPropertyDetail,
+        }}
+      >
         {props.children}
       </PropertyDetailContext.Provider>
     </>

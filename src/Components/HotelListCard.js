@@ -1,13 +1,32 @@
-import React from "react";
-import { ChakraProvider } from "@chakra-ui/react";
+import React, { useContext } from "react";
 import { Box, Image, Badge } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
+import { Link } from "react-router-dom";
+import PropertyDetailContext from "../Context/PropertyDetailContext";
 
-const HotelListCard = ({ name, rating, total, price, imageUrl }) => {
+const HotelListCard = ({ id, name, rating, total, price, imageUrl }) => {
+  const { dispatchPropertyDetail } = useContext(PropertyDetailContext);
+
   return (
     <>
-      <ChakraProvider>
-        <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
+      <Link
+        to={{
+          pathname: "/detail",
+          //state: {},
+        }}
+      >
+        <Box
+          onClick={() =>
+            dispatchPropertyDetail({
+              type: "HOTEL_ID",
+              payload: id,
+            })
+          }
+          maxW="sm"
+          borderWidth="1px"
+          borderRadius="lg"
+          overflow="hidden"
+        >
           <Image src={imageUrl} alt="hotel image" />
           <Box p="6">
             <Box d="flex" alignItems="baseline">
@@ -53,7 +72,7 @@ const HotelListCard = ({ name, rating, total, price, imageUrl }) => {
             </Box>
           </Box>
         </Box>
-      </ChakraProvider>
+      </Link>
     </>
   );
 };
