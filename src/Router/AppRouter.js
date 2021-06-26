@@ -6,6 +6,7 @@ import Home from "../Components/Home";
 import FadeIn from "react-fade-in";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PropertyDetail from "../Components/PropertyDetail/PropertyDetail";
+import HotelLists from "../Components/HotelLists";
 
 const AppRouter = () => {
   return (
@@ -16,6 +17,7 @@ const AppRouter = () => {
             <Header />
             <Switch>
               <Route path="/" exact render={(props) => <Home {...props} />} />
+              <Route path="/hotellists" component={HotelLists} />
               <Route path="/detail" component={PropertyDetail} />
             </Switch>
             {/* Footer here */}

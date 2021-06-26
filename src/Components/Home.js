@@ -17,6 +17,7 @@ const Home = () => {
   const [myEndDate, setMyEndDate] = useState("");
   const [showHotelList, setShowHotelList] = useState(false);
   const homeCtx = useContext(HomeContext);
+  console.log(homeCtx);
 
   const getHotelData = () => {
     const options = {
@@ -34,9 +35,6 @@ const Home = () => {
       .then((response) => {
         console.log(response);
         setDestination(response.data.suggestions[0].entities[0].destinationId);
-      })
-      .then(() => {
-        //getHotelList();
       })
       .catch((error) => {
         console.error(error);

@@ -5,6 +5,8 @@ import { BsPersonFill } from "react-icons/bs";
 import { GrLanguage } from "react-icons/gr";
 import { Container, Row, Col } from "react-bootstrap";
 import HomeContext from "../Context/HomeContext";
+import { Link } from "react-router-dom";
+
 //import { Button } from "@chakra-ui/react";
 //import { useDisclosure } from "@chakra-ui/react";
 const logo = "../image/home.png";
@@ -18,7 +20,9 @@ const Header = () => {
       <Container fluid className="headerContainer">
         <Row>
           <Col>
-            <img className="logo" src={logo} />
+            <Link to="/">
+              <img className="logo" src={logo} />
+            </Link>
           </Col>
           <Col>
             <div>
