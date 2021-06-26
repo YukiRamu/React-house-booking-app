@@ -1,8 +1,17 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import { Text, Button, ButtonGroup, Spinner, Divider, Feature, Box, Stack, HStack, Heading, VStack, Grid, GridItem, Avatar, AvatarBadge, AvatarGroup } from "@chakra-ui/react";
+import {
+  Text, Button, ButtonGroup, Spinner, Divider, Feature, Box, Stack, HStack, Heading, VStack, Grid, GridItem, Avatar, AvatarBadge, AvatarGroup, Modal,
+  ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, FormControl, FormLabel, Input, Select, FormErrorMessage, FormHelperText, NumberInput, NumberInputField,
+  NumberInputStepper, NumberIncrementStepper,
+  NumberDecrementStepper,
+} from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { FaHeart } from "react-icons/fa";
 import { MdSmokeFree } from "react-icons/md";
+import { ImCross } from "react-icons/im";
 import { IoFlowerOutline, IoFlowerSharp, IoBedSharp, IoLocationSharp } from "react-icons/io5";
 import "./PropertyDetail.css";
 import PropertyDetailContext from '../../Context/PropertyDetailContext';
@@ -10,8 +19,26 @@ import PropertyDetailContext from '../../Context/PropertyDetailContext';
 const PropertyDetail = () => {
 
   const { propertyDetail, dispatchPropertyDetail } = useContext(PropertyDetailContext);
-
   console.log(propertyDetail);
+  //private state hook for modal pop up
+  const [modalStyle, setModalStyle] = useState({ "display": "block" });
+  const [date, setDate] = useState(new Date());
+
+  //================== methods for modal ================== 
+  const openModal = (id) => {
+
+    setModalStyle({ "display": "block" });
+  };
+
+  const hideModal = () => {
+    setModalStyle({ "display": "none" });
+  };
+
+  const formSubmit = (e) => {
+    e.preventDefault();
+    setModalStyle({ "display": "none" });
+    console.log(e);
+  };
 
   return (
     <>
@@ -125,13 +152,95 @@ const PropertyDetail = () => {
           {/* Transportation : tab */}
           <Text fontSize="2xl" className="detailTitle">Transportation</Text>
 
-
-          {/* Modal pop up */}
-          <Button colorScheme="teal" size="lg" className="availBtn">
-            Check Availability
+          {/* Host info */}
+          <Text fontSize="2xl" className="detailTitle">Hosted by </Text>
+          <Button colorScheme="teal" size="lg" className="contactBtn">
+            Contact host
           </Button>
 
 
+          {/* ===== Modal pop up =====  */}
+          <Button colorScheme="teal" size="lg"
+            className="availBtn"
+            onClick={openModal}>
+            Check Availability
+          </Button>
+
+          <div className="modalContainer" style={modalStyle}>
+            <div className="modalContent">
+              <Text fontSize="xl">Availability</Text>
+              <button className="clsBtn" onClick={hideModal}><ImCross /></button>
+              <form onSubmit={e => formSubmit(e)}>
+
+                <div className="dateSelect">
+                  <FormControl>
+                    <FormLabel>Check-in date</FormLabel>
+                    <DatePicker
+                      className="checkIn"
+                      onSelect={date => setDate(date)}
+                      selected={date} />
+                  </FormControl>
+
+                  <FormControl>
+                    <FormLabel>Check-out date</FormLabel>
+                    <DatePicker
+                      className="checkOut"
+                      onSelect={date => setDate(date)}
+                      selected={date} />
+                  </FormControl>
+                </div>
+
+                <FormControl>
+                  <FormLabel>Guests</FormLabel>
+                  <div className="guestNumInput">
+                    <FormLabel fontSize="md">Adults</FormLabel>
+                    <NumberInput min={0} defaultValue={0}>
+                      <NumberInputField />
+                      <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                      </NumberInputStepper>
+                    </NumberInput>
+
+                    <FormLabel fontSize="md">Children</FormLabel>
+                    <NumberInput min={0} defaultValue={0}>
+                      <NumberInputField  />
+                      <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                      </NumberInputStepper>
+                    </NumberInput>
+                  </div>
+                </FormControl>
+
+                <FormControl>
+                  <FormLabel>Rooms</FormLabel>
+                  <div className="roomTypeInput">
+                    <FormLabel fontSize="md">Type</FormLabel>
+                    <Select>
+                      <option>select room type</option>
+                      <option>King</option>
+                      <option>Queen</option>
+                      <option>Single</option>
+                    </Select>
+
+                    <FormLabel fontSize="md">Number</FormLabel>
+                    <NumberInput min={0} defaultValue={0}>
+                      <NumberInputField />
+                      <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                      </NumberInputStepper>
+                    </NumberInput>
+                  </div>
+                </FormControl>
+
+                <Button type="submit" className="submitBtn">Check availability</Button>
+              </form>
+            </div>
+
+
+          </div>
 
         </div>
       ) : (
