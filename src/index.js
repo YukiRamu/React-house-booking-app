@@ -4,12 +4,18 @@ import "./index.css";
 import AppRouter from "./Router/AppRouter";
 import reportWebVitals from "./reportWebVitals";
 import { HomeContextProvider } from "./Context/HomeContext";
+import { PropertyDetailProvider } from "./Context/PropertyDetailContext";
+import { ChakraProvider } from "@chakra-ui/react";
 
 ReactDOM.render(
   <React.StrictMode>
-    <HomeContextProvider>
-      <AppRouter />
-    </HomeContextProvider>
+    <ChakraProvider>
+      <HomeContextProvider>
+        <PropertyDetailProvider>
+          <AppRouter />
+        </PropertyDetailProvider>
+      </HomeContextProvider>
+    </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
