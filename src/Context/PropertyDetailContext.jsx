@@ -5,12 +5,19 @@ import axios from "axios";
 const PropertyDetailContext = createContext();
 
 const PropertyDetailProvider = (props) => {
+
   /* PropertyDetailReducer */
   const initialState = {
     property: [],
     transportation: [],
     host: [],
     roomImg: [],
+    price: {
+      King: 150,
+      Queen: 120,
+      Sofa: 100,
+      Other: 200
+    },
     hotelId: "",
   };
 
@@ -36,7 +43,8 @@ const PropertyDetailProvider = (props) => {
     axios
       .request(detailParam)
       .then((response) => {
-        console.log(response.data);
+
+        console.log("fetched data is ", response.data);
         dispatchPropertyDetail({
           type: "PROPERTYDETAIL_FETCH_SUCCESS",
           payload: response.data.data.body,

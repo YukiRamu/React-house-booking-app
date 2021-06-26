@@ -11,7 +11,6 @@
   position: relative;
   min-height: 90vh;
   margin-bottom: 2rem;
-  padding-top: 50px; //to be adjusted
   .title {
     display: flex;
     justify-content: space-around;
@@ -72,89 +71,6 @@
       p {
         svg {
           display: inline-block;
-        }
-      }
-    }
-  }
-  .availBtn {
-    position: sticky;
-    display: block;
-    bottom: 20px;
-    margin-left: auto;
-  }
-}
-.modalContainer {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.689);
-  top: 0;
-  left: 0;
-  z-index: 2000;
-  .modalContent {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgb(255, 255, 255);
-    width: fit-content;
-    min-height: 80vh;
-    border-radius: 3vw;
-    padding: 3rem;
-    overflow: auto;
-    p {
-      margin-bottom: 1rem;
-    }
-    .clsBtn {
-      position: absolute;
-      top: 5%;
-      right: 5%;
-      font-size: 2rem;
-      background-color: transparent;
-      border: none;
-      &:hover {
-        color: teal;
-      }
-    }
-    form {
-      .dateSelect {
-        margin-bottom: 1rem;
-        display: flex;
-        justify-content: flex-start;
-        flex-direction: row;
-        align-items: center;
-      }
-      .chakra-form-control {
-        margin-bottom: 1rem;
-        .react-datepicker__input-container {
-          input {
-            border: 0.1rem solid lightgrey;
-            border-radius: var(--chakra-radii-md);
-            padding: 0.5rem;
-            &:focus {
-              border-color: teal;
-              outline: none;
-            }
-          }
-        }
-        .guestNumInput,
-        .roomTypeInput {
-          display: flex;
-          justify-content: flex-start;
-          flex-direction: row;
-          align-items: center;
-          grid-gap: 1rem;
-          margin-bottom: 1rem;
-        }
-      }
-      .submitBtn {
-        border: 0.1rem solid teal;
-        position: absolute;
-        bottom: 5%;
-        right: 5%;
-        &:hover {
-          background-color: teal;
-          color: white;
         }
       }
     }
