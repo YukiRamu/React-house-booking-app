@@ -2,7 +2,6 @@ import React, { useContext, useState, useRef } from "react";
 import HomeContext from "../Context/HomeContext";
 import HotelLists from "./HotelLists";
 import "./scss/BookModal.scss";
-import { ChakraProvider } from "@chakra-ui/react";
 import {
   Button,
   Modal,
@@ -16,6 +15,7 @@ import {
 import { useDisclosure } from "@chakra-ui/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Link } from "react-router-dom";
 
 const BookModal = ({
   setInputValue,
@@ -46,75 +46,73 @@ const BookModal = ({
 
   return (
     <>
-      <ChakraProvider>
-        <Modal isOpen={homeCtx.openModal} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Book a hotel</ModalHeader>
-            <ModalCloseButton
-              onClick={() =>
-                homeCtx.dispatchHome({
-                  type: "CLOSE",
-                })
-              }
+      <Modal isOpen={homeCtx.openModal} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Book a hotel</ModalHeader>
+          <ModalCloseButton
+            onClick={() =>
+              homeCtx.dispatchHome({
+                type: "CLOSE",
+              })
+            }
+          />
+          <ModalBody>
+            <input
+              type="text"
+              placeholder="Location"
+              ref={inputRef}
+              onChange={() => {
+                setInputValue(inputRef.current.value);
+              }}
             />
-            <ModalBody>
-              <input
-                type="text"
-                placeholder="Location"
-                ref={inputRef}
-                onChange={() => {
-                  setInputValue(inputRef.current.value);
-                }}
-              />
-              <div>
-                <span>Check in</span>
-                <DatePicker
-                  id="myStartDate"
-                  selected={startDate}
-                  dateFormat="yyyy-MM-dd"
-                  onChange={(date) => {
-                    {
-                      setStartDate(date);
-                      startDateChange(date);
-                    }
-                  }}
-                />
-              </div>
-              <div>
-                <span>Check out</span>
-                <DatePicker
-                  id="myEndDate"
-                  selected={endDate}
-                  dateFormat="yyyy-MM-dd"
-                  onChange={(date) => {
-                    {
-                      setEndDate(date);
-                      endDateChange(date);
-                    }
-                  }}
-                />
-              </div>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                variant="ghost"
-                onClick={() => {
+            <div>
+              <span>Check in</span>
+              <DatePicker
+                id="myStartDate"
+                selected={startDate}
+                dateFormat="yyyy-MM-dd"
+                onChange={(date) => {
                   {
-                    homeCtx.dispatchHome({
-                      type: "CLOSE",
-                    });
-                    getHotelData();
-                    setShowHotelList(true);
+                    setStartDate(date);
+                    startDateChange(date);
                   }
                 }}
-              >
-                Search
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </ChakraProvider>
+              />
+            </div>
+            <div>
+              <span>Check out</span>
+              <DatePicker
+                id="myEndDate"
+                selected={endDate}
+                dateFormat="yyyy-MM-dd"
+                onChange={(date) => {
+                  {
+                    setEndDate(date);
+                    endDateChange(date);
+                  }
+                }}
+              />
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                {
+                  homeCtx.dispatchHome({
+                    type: "CLOSE",
+                  });
+                  getHotelData();
+                  setShowHotelList(true);
+                }
+              }}
+            >
+              Search
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 };

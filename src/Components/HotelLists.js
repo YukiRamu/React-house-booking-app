@@ -11,8 +11,8 @@ const HotelLists = () => {
         homeCtx.fetchedData.results.map((result) => {
           return (
             <div>
-              {console.log(result.guestReviews)}
               <HotelListCard
+                id={result.id}
                 name={result.name}
                 rating={result.guestReviews ? result.guestReviews.rating : ""}
                 total={result.guestReviews ? result.guestReviews.total : ""}
