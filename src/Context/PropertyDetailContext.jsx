@@ -6,12 +6,24 @@ const PropertyDetailContext = createContext();
 
 const PropertyDetailProvider = (props) => {
 
+  const price = {
+    king: 150,
+    queen: 120,
+    sofa: 100
+  };
+
   /* PropertyDetailReducer */
   const initialState = {
     property: [],
     transportation: [],
     host: [],
-    roomImg: []
+    roomImg: [],
+    price: {
+      King: 150,
+      Queen: 120,
+      Sofa: 100,
+      Other: 200
+    }
   };
 
   const [propertyDetail, dispatchPropertyDetail] = useReducer(PropertyDetailReducer, initialState);
@@ -31,7 +43,7 @@ const PropertyDetailProvider = (props) => {
     axios
       .request(detailParam)
       .then((response) => {
-        console.log(response.data);
+        console.log("fetched data is ", response.data);
         dispatchPropertyDetail({ type: "PROPERTYDETAIL_FETCH_SUCCESS", payload: response.data.data.body });
         dispatchPropertyDetail({ type: "TRANSPORTATION_FETCH_SUCCESS", payload: response.data.transportation.transportLocations });
       })
