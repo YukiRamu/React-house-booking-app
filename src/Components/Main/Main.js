@@ -1,5 +1,8 @@
 import React from "react";
 import "./Main.css";
+import PropertyDetail from "../PropertyDetail/PropertyDetail";
+import { ChakraProvider } from "@chakra-ui/react";
+import FadeIn from "react-fade-in";
 
 import Header from "../Header";
 import Home from "../Home";
@@ -9,11 +12,18 @@ import Home from "../Home";
 const Main = () => {
   return (
     <>
-      {/* Header */}
-      <Header />
-      {/* Main container */}
-      <Home />
-      {/* Footer */}
+      <ChakraProvider>
+        <FadeIn>
+          {/* Header */}
+
+          {/* Main container */}
+          <h1>React Property Booking Website</h1>
+
+          {/* Detail page for testing purpose, will be deleted once the router is ready */}
+          <PropertyDetail />
+          {/* Footer */}
+        </FadeIn>
+      </ChakraProvider>
     </>
   );
 };
