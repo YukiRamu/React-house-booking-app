@@ -73,14 +73,27 @@
           margin-bottom: 1rem;
         }
       }
-      .submitBtn {
-        border: 0.1rem solid teal;
+      .error {
+        background: rgb(247, 201, 208);
+        padding: 0.5rem 1rem;
+        color: #f00;
+        font-weight: bold;
+        svg {
+          display: inline-block;
+        }
+      }
+      .btns {
         position: absolute;
         bottom: 5%;
         right: 5%;
-        &:hover {
-          background-color: teal;
-          color: white;
+        .submitBtn,
+        .checkOutBtn {
+          border: 0.1rem solid teal;
+          margin: 0.5rem;
+          &:hover {
+            background-color: teal;
+            color: white;
+          }
         }
       }
     }

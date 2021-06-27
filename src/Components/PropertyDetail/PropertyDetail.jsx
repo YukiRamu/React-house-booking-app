@@ -9,7 +9,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaHeart } from "react-icons/fa";
 import { MdSmokeFree } from "react-icons/md";
-
 import { IoFlowerOutline, IoFlowerSharp, IoBedSharp, IoLocationSharp } from "react-icons/io5";
 import "./PropertyDetail.css";
 import PropertyDetailContext from '../../Context/PropertyDetailContext';

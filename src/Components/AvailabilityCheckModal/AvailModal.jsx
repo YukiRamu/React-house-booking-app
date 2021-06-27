@@ -5,6 +5,7 @@ import {
   NumberDecrementStepper,
 } from "@chakra-ui/react";
 import { ImCross } from "react-icons/im";
+import { IoAlertCircleSharp } from "react-icons/io5";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PropertyDetailContext from '../../Context/PropertyDetailContext';
@@ -16,8 +17,11 @@ const AvailModal = () => {
   console.log(propertyDetail);
 
   //private state hook for modal pop up
+  const [error, setError] = useState("");
+  const [openFlg, setOpenFlg] = useState(false);
   const [modalStyle, setModalStyle] = useState({ "display": "block" });
   const [modalInput, setModalInput] = useState({
+    hotelId: propertyDetail.hotelId,
     checkInDate: new Date(),
     checkOutDate: new Date(),
     adultNum: 0,
@@ -34,10 +38,45 @@ const AvailModal = () => {
     setModalStyle({ "display": "none" });
   };
 
-  const formSubmit = (e) => {
+  const checkAvailability = (e) => {
     e.preventDefault();
     //setModalStyle({ "display": "none" });
-    console.log("form submitted", modalInput);
+    console.log("e is ", e); //e.target[0].value = "2021/06/26 (checkin date format)
+    //  console.log("form submitted", modalInput);
+
+    //get the date and hotel id from localstorage
+    if (localStorage.hasOwnProperty("reservation")) {
+      const reservationData = JSON.parse(localStorage.getItem("reservation"));
+
+      //hotelId, roomType, check-in date match
+      if (reservationData.some(elem => (
+        (elem.hotelId === modalInput.hotelId) &&
+        (elem.roomType === modalInput.roomType) &&
+        (elem.checkInDate.substring(0, 10).replaceAll("-", "/") === e.target[0].value)))) {
+        setError("The room is not available :( Please try different room or date.");
+        setTimeout(() => { setError(""); }, 2000);
+      } else {
+        console.log("available. show price");
+        //show price
+        //show reserve button
+        setOpenFlg(true);
+      }
+    } else {
+      console.log("first time adding localstorage. available. show price");
+      //show price
+      //show reserve button
+      setOpenFlg(true);
+    }
+  };
+
+  const reserve = (e) => {
+    e.preventDefault();
+    console.log("reserve", modalInput);
+    //dispatch
+    dispatchPropertyDetail({
+      type: "RESERVE",
+      payload: modalInput,
+    });
   };
 
   return (
@@ -47,20 +86,21 @@ const AvailModal = () => {
         onClick={openModal}>
         Check Availability
       </Button>
-      
+
       <div className="modalContainer" style={modalStyle}>
         <div className="modalContent">
           <Text fontSize="xl">Availability</Text>
           <button className="clsBtn" onClick={hideModal}><ImCross /></button>
-          <form onSubmit={formSubmit}>
+          <form onSubmit={checkAvailability}>
 
             <div className="dateSelect">
               <FormControl>
                 <FormLabel>Check-in date</FormLabel>
                 <DatePicker
                   className="checkIn"
-                  onChange={date => { setModalInput({ ...modalInput, checkInDate: date }); }}
+                  onChange={date => setModalInput({ ...modalInput, checkInDate: date })}
                   selected={modalInput.checkInDate}
+                  dateFormat="yyyy/MM/dd"
                   monthsShown={2} />
               </FormControl>
 
@@ -134,7 +174,14 @@ const AvailModal = () => {
               </div>
             </FormControl>
 
-            <Button type="submit" className="submitBtn">Check availability</Button>
+            {error && (<p className="error"><IoAlertCircleSharp />{error}</p>)}
+
+            <div className="btns">
+              <Button type="submit" className="submitBtn">Check availability</Button>
+              {openFlg && (<Button type="button" className="checkOutBtn"
+                onClick={reserve}>Reserve</Button>)}
+            </div>
+
           </form>
         </div>
       </div>
