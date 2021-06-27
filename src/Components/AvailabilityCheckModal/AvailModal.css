@@ -104,14 +104,31 @@
   margin-bottom: 1rem;
 }
 
-.modalContainer .modalContent form .submitBtn {
-  border: 0.1rem solid teal;
+.modalContainer .modalContent form .error {
+  background: #f7c9d0;
+  padding: 0.5rem 1rem;
+  color: #f00;
+  font-weight: bold;
+}
+
+.modalContainer .modalContent form .error svg {
+  display: inline-block;
+}
+
+.modalContainer .modalContent form .btns {
   position: absolute;
   bottom: 5%;
   right: 5%;
 }
 
-.modalContainer .modalContent form .submitBtn:hover {
+.modalContainer .modalContent form .btns .submitBtn,
+.modalContainer .modalContent form .btns .checkOutBtn {
+  border: 0.1rem solid teal;
+  margin: 0.5rem;
+}
+
+.modalContainer .modalContent form .btns .submitBtn:hover,
+.modalContainer .modalContent form .btns .checkOutBtn:hover {
   background-color: teal;
   color: white;
 }
