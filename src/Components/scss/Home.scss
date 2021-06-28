@@ -1,0 +1,88 @@
+.mainImage {
+  display: flex;
+  justify-content: center;
+  flex-flow: wrap;
+  align-items: center;
+  text-align: center;
+  h1 {
+    font-size: 32px;
+    margin-bottom: 1rem;
+  }
+}
+
+.section {
+  padding: 3rem;
+}
+
+.subTitle {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.cityImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgb(0 0 0 / 30%);
+}
+
+.exploreNearbyContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cityContainer {
+  display: flex;
+  margin: 0 2rem 2rem 0;
+}
+
+.cityDescription {
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+}
+
+.liveAnywhereContainer {
+  display: flex;
+}
+
+.categoryContainer {
+  width: 50%;
+  span {
+    font-size: 1.3rem;
+  }
+}
+
+.categoryImage {
+  width: 90%;
+  height: 300px;
+  margin: 0 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgb(0 0 0 / 30%);
+}
+
+.tryHostingContainer {
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
+}
+
+.tryHostingBgImage {
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgb(0 0 0 / 30%);
+  position: relative;
+}
+
+.tryHostingDescription {
+  position: absolute;
+  top: 40%;
+  left: 10%;
+  text-align: center;
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: white;
+  }
+}

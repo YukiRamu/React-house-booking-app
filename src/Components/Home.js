@@ -3,10 +3,25 @@ import axios from "axios";
 import BookModal from "./BookModal";
 import HotelLists from "./HotelLists";
 import HomeContext from "../Context/HomeContext";
+import { Button } from "@chakra-ui/react";
+import "./scss/Home.scss";
 
 //画像はimportではなくstringでパスを変数に代入するやり方が良い。
 //画像はpublicフォルダの中に。
 const mainImage = "/image/mainImage.jpg";
+const vancouver = "/image/vancouver.jpg";
+const kelowna = "/image/kelowna.jpg";
+const tofino = "/image/tofino.jpg";
+const richmond = "/image/richmond.jpg";
+const victoria = "/image/victoria.jpg";
+const burnaby = "/image/burnaby.jpg";
+const outdoorgetaways = "/image/outdoorgetaways.jpg";
+const uniquestays = "/image/uniquestays.jpg";
+const entirehomes = "/image/entirehomes.jpg";
+const featuredcollection = "/image/featuredcollection.jpg";
+const onlineexperiences = "/image/onlineexperiences.jpg";
+const experiences = "/image/experiences.jpg";
+const tryhosting = "/image/tryhosting.jpg";
 
 const Home = () => {
   const [inputValue, setInputValue] = useState(new Date());
@@ -94,17 +109,149 @@ const Home = () => {
       {showHotelList ? (
         <HotelLists />
       ) : (
-        <div
-          className="mainImage"
-          style={{
-            backgroundImage: `url(${mainImage})`,
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-            position: "relative",
-            width: "100%",
-            minHeight: "100vh",
-          }}
-        ></div>
+        <div>
+          <div
+            className="mainImage"
+            style={{
+              backgroundImage: `url(${mainImage})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+              position: "relative",
+              width: "100%",
+              height: "calc(100vh - 90px)",
+            }}
+          >
+            <div className="mainMessageContainer">
+              <h1>The Greatest Outdoors</h1>
+              <Button colorScheme="teal">Get Inspired</Button>
+            </div>
+          </div>
+          <div>
+            <div className="section">
+              <h2 className="subTitle">Explore nearby</h2>
+              <div className="exploreNearbyContainer">
+                <div className="cityContainer">
+                  <img className="cityImage" src={vancouver} alt="vancouver" />
+                  <div className="cityDescription">
+                    <span>Vancouver</span>
+                    <span>15-minute drive</span>
+                  </div>
+                </div>
+                <div className="cityContainer">
+                  <img className="cityImage" src={kelowna} alt="kelowna" />
+                  <div className="cityDescription">
+                    <span>Kelowna</span>
+                    <span>5-hour drive</span>
+                  </div>
+                </div>
+                <div className="cityContainer">
+                  <img className="cityImage" src={tofino} alt="tofino" />
+                  <div className="cityDescription">
+                    <span>Tofino</span>
+                    <span>6-hour drive</span>
+                  </div>
+                </div>
+                <div className="cityContainer">
+                  <img className="cityImage" src={richmond} alt="richmond" />
+                  <div className="cityDescription">
+                    <span>Richmond</span>
+                    <span>30-minute drive</span>
+                  </div>
+                </div>
+                <div className="cityContainer">
+                  <img className="cityImage" src={victoria} alt="victoria" />
+                  <div className="cityDescription">
+                    <span>Victoria</span>
+                    <span>3.5-hour drive</span>
+                  </div>
+                </div>
+                <div className="cityContainer">
+                  <img className="cityImage" src={burnaby} alt="burnaby" />
+                  <div className="cityDescription">
+                    <span>Burnaby</span>
+                    <span>15-minute drive</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="section">
+              <h2 className="subTitle">Live anywhere</h2>
+              <div className="liveAnywhereContainer">
+                <div className="categoryContainer">
+                  <img
+                    className="categoryImage"
+                    src={outdoorgetaways}
+                    alt="outdoorgetaways"
+                  />
+                  <span>Outdoor getaways</span>
+                </div>
+                <div className="categoryContainer">
+                  <img
+                    className="categoryImage"
+                    src={uniquestays}
+                    alt="uniquestays"
+                  />
+                  <span>Unique stays</span>
+                </div>
+                <div className="categoryContainer">
+                  <img
+                    className="categoryImage"
+                    src={entirehomes}
+                    alt="entirehomes"
+                  />
+                  <span>Entire homes</span>
+                </div>
+              </div>
+            </div>
+            <div className="tryHostingContainer">
+              <div
+                className="tryHostingBgImage"
+                style={{
+                  backgroundImage: `url(${tryhosting})`,
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                  position: "relative",
+                  width: "100%",
+                  height: "50vh",
+                }}
+              >
+                <div className="tryHostingDescription">
+                  <h2>Try hosting</h2>
+                  <Button>Learn more</Button>
+                </div>
+              </div>
+            </div>
+            <div className="section">
+              <h2 className="subTitle">Discover Experiences</h2>
+              <div className="liveAnywhereContainer">
+                <div className="categoryContainer">
+                  <img
+                    className="categoryImage"
+                    src={featuredcollection}
+                    alt="featuredcollection"
+                  />
+                  <span>Featured collection: Wanderlust</span>
+                </div>
+                <div className="categoryContainer">
+                  <img
+                    className="categoryImage"
+                    src={onlineexperiences}
+                    alt="onlineexperiences"
+                  />
+                  <span>Online Experiences</span>
+                </div>
+                <div className="categoryContainer">
+                  <img
+                    className="categoryImage"
+                    src={experiences}
+                    alt="experiences"
+                  />
+                  <span>Experiences</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );
