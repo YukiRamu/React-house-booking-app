@@ -1,44 +1,23 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from "react-router-dom";
 import {
-  Text, Button, ButtonGroup, Spinner, Divider, Feature, Box, Stack, HStack, Heading, VStack, Grid, GridItem, Avatar, AvatarBadge, AvatarGroup, Modal,
-  ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, FormControl, FormLabel, Input, Select, FormErrorMessage, FormHelperText, NumberInput, NumberInputField,
-  NumberInputStepper, NumberIncrementStepper,
-  NumberDecrementStepper,
+  Text, Button, Spinner, Divider, Box, Grid, GridItem
 } from "@chakra-ui/react";
-import { useDisclosure } from "@chakra-ui/react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaHeart } from "react-icons/fa";
 import { MdSmokeFree } from "react-icons/md";
-import { ImCross } from "react-icons/im";
 import { IoFlowerOutline, IoFlowerSharp, IoBedSharp, IoLocationSharp } from "react-icons/io5";
 import "./PropertyDetail.css";
 import PropertyDetailContext from '../../Context/PropertyDetailContext';
+import AvailModal from '../AvailabilityCheckModal/AvailModal';
+import RsvCompModal from '../RsvCompModal/RsvCompModal';
 
 const PropertyDetail = () => {
 
-  const { propertyDetail, dispatchPropertyDetail } = useContext(PropertyDetailContext);
+  const { propertyDetail, rsvCompFlg } = useContext(PropertyDetailContext);
+
   console.log(propertyDetail);
-  //private state hook for modal pop up
-  const [modalStyle, setModalStyle] = useState({ "display": "block" });
-  const [date, setDate] = useState(new Date());
-
-  //================== methods for modal ================== 
-  const openModal = (id) => {
-
-    setModalStyle({ "display": "block" });
-  };
-
-  const hideModal = () => {
-    setModalStyle({ "display": "none" });
-  };
-
-  const formSubmit = (e) => {
-    e.preventDefault();
-    setModalStyle({ "display": "none" });
-    console.log(e);
-  };
+  console.log(rsvCompFlg)
 
   return (
     <>
@@ -158,103 +137,27 @@ const PropertyDetail = () => {
             Contact host
           </Button>
 
+          {/* ===== Modal pop up for availability check =====  */}
+          <AvailModal />
 
-          {/* ===== Modal pop up =====  */}
-          <Button colorScheme="teal" size="lg"
-            className="availBtn"
-            onClick={openModal}>
-            Check Availability
-          </Button>
+          {/* ===== Modal pop up for reservation complete === */}
+          {rsvCompFlg && (<RsvCompModal />)}
 
-          <div className="modalContainer" style={modalStyle}>
-            <div className="modalContent">
-              <Text fontSize="xl">Availability</Text>
-              <button className="clsBtn" onClick={hideModal}><ImCross /></button>
-              <form onSubmit={e => formSubmit(e)}>
-
-                <div className="dateSelect">
-                  <FormControl>
-                    <FormLabel>Check-in date</FormLabel>
-                    <DatePicker
-                      className="checkIn"
-                      onSelect={date => setDate(date)}
-                      selected={date} />
-                  </FormControl>
-
-                  <FormControl>
-                    <FormLabel>Check-out date</FormLabel>
-                    <DatePicker
-                      className="checkOut"
-                      onSelect={date => setDate(date)}
-                      selected={date} />
-                  </FormControl>
-                </div>
-
-                <FormControl>
-                  <FormLabel>Guests</FormLabel>
-                  <div className="guestNumInput">
-                    <FormLabel fontSize="md">Adults</FormLabel>
-                    <NumberInput min={0} defaultValue={0}>
-                      <NumberInputField />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper />
-                        <NumberDecrementStepper />
-                      </NumberInputStepper>
-                    </NumberInput>
-
-                    <FormLabel fontSize="md">Children</FormLabel>
-                    <NumberInput min={0} defaultValue={0}>
-                      <NumberInputField  />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper />
-                        <NumberDecrementStepper />
-                      </NumberInputStepper>
-                    </NumberInput>
-                  </div>
-                </FormControl>
-
-                <FormControl>
-                  <FormLabel>Rooms</FormLabel>
-                  <div className="roomTypeInput">
-                    <FormLabel fontSize="md">Type</FormLabel>
-                    <Select>
-                      <option>select room type</option>
-                      <option>King</option>
-                      <option>Queen</option>
-                      <option>Single</option>
-                    </Select>
-
-                    <FormLabel fontSize="md">Number</FormLabel>
-                    <NumberInput min={0} defaultValue={0}>
-                      <NumberInputField />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper />
-                        <NumberDecrementStepper />
-                      </NumberInputStepper>
-                    </NumberInput>
-                  </div>
-                </FormControl>
-
-                <Button type="submit" className="submitBtn">Check availability</Button>
-              </form>
-            </div>
-
-
+        </div>
+      ) :
+        (
+          <div className="PropertyDetailContainer">
+            <p className="loading">Loading... Hang on a sec...</p>
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="teal.500"
+              size="xl"
+            />
           </div>
-
-        </div>
-      ) : (
-        <div className="PropertyDetailContainer">
-          <p className="loading">Loading... Hang on a sec...</p>
-          <Spinner
-            thickness="4px"
-            speed="0.65s"
-            emptyColor="gray.200"
-            color="teal.500"
-            size="xl"
-          />
-        </div>
-      )}
+        )
+      }
     </>
   );
 };

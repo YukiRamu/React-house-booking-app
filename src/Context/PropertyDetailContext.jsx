@@ -1,29 +1,38 @@
-import React, { useReducer, createContext, useEffect } from "react";
+import React, { useReducer, createContext, useState, useEffect } from "react";
 import PropertyDetailReducer from "../Reducer/PropertyDetailReducer";
 import axios from "axios";
 
 const PropertyDetailContext = createContext();
 
 const PropertyDetailProvider = (props) => {
-  /* PropertyDetailReducer */
-  const initialState = {
-    property: [],
-    transportation: [],
-    host: [],
-    roomImg: [],
-    hotelId: "",
-  };
 
-  const [propertyDetail, dispatchPropertyDetail] = useReducer(
-    PropertyDetailReducer,
-    initialState
-  );
+  /* Global Context */
+  const [rsvCompFlg, setRsvCompFlg] = useState(false);
+
+  /* PropertyDetailReducer */
+  const [propertyDetail, dispatchPropertyDetail] = useReducer(PropertyDetailReducer, [], () => {
+    const localReservationData = localStorage.getItem("reservation");
+    return {
+      property: [],
+      transportation: [],
+      host: [],
+      roomImg: [],
+      reservation: localReservationData ? JSON.parse(localReservationData) : [],
+      price: {
+        King: 150,
+        Queen: 120,
+        Sofa: 100,
+        Other: 200
+      },
+      hotelId: "216337", //passed from HotelListCard.js : testing purpose
+    };
+  });
 
   /* Get Hotel Detail */
   const detailParam = {
     method: "GET",
     url: "https://hotels4.p.rapidapi.com/properties/get-details",
-    params: { id: propertyDetail.hotelId }, //will get hotel id from Yumi
+    params: { id: propertyDetail.hotelId },
     headers: {
       "x-rapidapi-key": "c9968e2987mshd0b8344da831c28p10df23jsn55a0df610ca7",
       "x-rapidapi-host": "hotels4.p.rapidapi.com",
@@ -31,12 +40,10 @@ const PropertyDetailProvider = (props) => {
   };
 
   useEffect(() => {
-    if (propertyDetail.hotelId === "") return;
-
     axios
       .request(detailParam)
       .then((response) => {
-        console.log(response.data);
+        console.log("fetched data is ", response.data);
         dispatchPropertyDetail({
           type: "PROPERTYDETAIL_FETCH_SUCCESS",
           payload: response.data.data.body,
@@ -50,6 +57,11 @@ const PropertyDetailProvider = (props) => {
         console.error(`Failed to fetch property detail data. Error= ${error}`);
       });
   }, [propertyDetail.hotelId]);
+
+  /* Local Storage */
+  useEffect(() => {
+    localStorage.setItem("reservation", JSON.stringify(propertyDetail.reservation));
+  }, [propertyDetail.reservation]);
 
   /* Get Review */
   // const reviewParam = {
@@ -94,7 +106,6 @@ const PropertyDetailProvider = (props) => {
           throw imgRes.statusText;
         } else {
           const imgData = await imgRes.json();
-          console.log(imgData.hits);
           let data = []; //pick only 7 photos
           for (let i = 0; i < 7; i++) {
             data.push(imgData.hits[i]);
@@ -113,6 +124,8 @@ const PropertyDetailProvider = (props) => {
         value={{
           propertyDetail,
           dispatchPropertyDetail,
+          rsvCompFlg,
+          setRsvCompFlg
         }}
       >
         {props.children}

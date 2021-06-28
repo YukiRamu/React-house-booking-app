@@ -1,0 +1,135 @@
+.PropertyDetailContainer .availBtn {
+  position: -webkit-sticky;
+  position: sticky;
+  display: block;
+  bottom: 20px;
+  margin-left: auto;
+}
+
+.modalContainer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.689);
+  top: 0;
+  left: 0;
+  z-index: 2000;
+}
+
+.modalContainer .modalContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: white;
+  width: 70vw;
+  min-height: 80vh;
+  border-radius: 3vw;
+  padding: 3rem;
+  overflow: auto;
+}
+
+.modalContainer .modalContent p {
+  margin-bottom: 1rem;
+}
+
+.modalContainer .modalContent .clsBtn {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  font-size: 2rem;
+  background-color: transparent;
+  border: none;
+}
+
+.modalContainer .modalContent .clsBtn:hover {
+  color: teal;
+}
+
+.modalContainer .modalContent form .dateSelect {
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.modalContainer .modalContent form .dateSelect .react-datepicker {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.modalContainer .modalContent form .chakra-form-control {
+  margin-bottom: 1rem;
+}
+
+.modalContainer .modalContent form .chakra-form-control .react-datepicker__input-container input {
+  border: 0.1rem solid lightgrey;
+  border-radius: var(--chakra-radii-md);
+  padding: 0.5rem;
+}
+
+.modalContainer .modalContent form .chakra-form-control .react-datepicker__input-container input:focus {
+  border-color: teal;
+  outline: none;
+}
+
+.modalContainer .modalContent form .chakra-form-control .guestNumInput,
+.modalContainer .modalContent form .chakra-form-control .roomTypeInput {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  grid-gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.modalContainer .modalContent form .error {
+  background: #f7c9d0;
+  padding: 0.5rem 1rem;
+  color: #f00;
+  font-weight: bold;
+}
+
+.modalContainer .modalContent form .error svg {
+  display: inline-block;
+}
+
+.modalContainer .modalContent form .btns {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+}
+
+.modalContainer .modalContent form .btns .submitBtn,
+.modalContainer .modalContent form .btns .checkOutBtn {
+  border: 0.1rem solid teal;
+  margin: 0.5rem;
+}
+
+.modalContainer .modalContent form .btns .submitBtn:hover,
+.modalContainer .modalContent form .btns .checkOutBtn:hover {
+  background-color: teal;
+  color: white;
+}
+/*# sourceMappingURL=AvailModal.css.map */
