@@ -21,7 +21,7 @@ const RsvCompModal = () => {
           <Button className="clsBtn" onClick={closeModal}><ImCross /></Button>
           <div className="modalMsg">
             <Text fontSize="3xl" className="compMsg">Reservation Completed<ImSmile />  Thank you!!</Text>
-            <Link to="/home" className="backHomeBtn">Go back to homepage</Link>
+            <Link to="/home" className="backHomeBtn" onClick={() => { setRsvCompFlg(false); }}>Go back to homepage</Link>
           </div>
         </div>
       </div>

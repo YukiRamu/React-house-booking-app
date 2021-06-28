@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react';
 import {
-  Text, Button, FormControl, FormLabel, Input, Select, FormErrorMessage, FormHelperText, NumberInput, NumberInputField,
+  Text, Button, FormControl, FormLabel, Divider, Select, NumberInput, NumberInputField,
   NumberInputStepper, NumberIncrementStepper,
   NumberDecrementStepper,
 } from "@chakra-ui/react";
 import { ImCross } from "react-icons/im";
 import { IoAlertCircleSharp } from "react-icons/io5";
 import DatePicker from "react-datepicker";
+import { addDays } from 'date-fns';
 import "react-datepicker/dist/react-datepicker.css";
 import PropertyDetailContext from '../../Context/PropertyDetailContext';
 import "./AvailModal.css";
@@ -22,51 +23,99 @@ const AvailModal = () => {
   const [modalStyle, setModalStyle] = useState({ "display": "none" });
   const [modalInput, setModalInput] = useState({
     hotelId: propertyDetail.hotelId,
-    checkInDate: new Date(),
-    checkOutDate: new Date(),
+    checkInDate: addDays(new Date(), 1),
+    checkOutDate: addDays(new Date(), 2),
     adultNum: 0,
     childrenNum: 0,
     roomType: "",
     roomNum: 0,
   });
+  const [calcPanel, setCalcPanel] = useState({ "display": "none" });
+  const [total, setTotal] = useState({ nights: 0, total: 0, roomNum: 0 });
 
+  //methods
   const openModal = () => {
     setModalStyle({ "display": "block" });
   };
 
   const hideModal = () => {
     setModalStyle({ "display": "none" });
+    //hide reserve button
+    setAvailFlg(false);
+    //hide price panel
+    setCalcPanel({ "display": "none" });
+    //clear input
+    setModalInput({
+      hotelId: propertyDetail.hotelId,
+      checkInDate: addDays(new Date(), 1),
+      checkOutDate: addDays(new Date(), 2),
+      adultNum: 0,
+      childrenNum: 0,
+      roomType: "",
+      roomNum: 0,
+    });
+  };
+
+  const showPrice = () => {
+    console.log(modalInput.checkOutDate - modalInput.checkInDate); //1 day = 86400000 ms
+    setTotal({
+      nights: (modalInput.checkOutDate - modalInput.checkInDate) / 86400000,
+      roomNum: modalInput.roomNum,
+      total: ((modalInput.checkOutDate - modalInput.checkInDate) / 86400000) * 200 * modalInput.roomNum
+    });
+    setCalcPanel({ "display": "block" });
   };
 
   const checkAvailability = (e) => {
     e.preventDefault();
-    //setModalStyle({ "display": "none" });
-    console.log("e is ", e); //e.target[0].value = "2021/06/26 (checkin date format)
-    //  console.log("form submitted", modalInput);
+    console.log("e is ", e);
+    console.log(modalInput);
 
-    //get the date and hotel id from localstorage
-    if (localStorage.hasOwnProperty("reservation")) {
-      const reservationData = JSON.parse(localStorage.getItem("reservation"));
-      //hotelId, roomType, check-in date match
-      if (reservationData.some(elem => (
-        (elem.hotelId === modalInput.hotelId) &&
-        (elem.roomType === modalInput.roomType) &&
-        (elem.checkInDate.substring(0, 10).replaceAll("-", "/") === e.target[0].value)))) {
-        setError("The room is not available :( Please try different room or date.");
-        setTimeout(() => { setError(""); }, 2000);
+    let isInputValid = false;
+    let isDateValid = false;
+
+    //validation check 1
+    if ((modalInput.adultNum === 0) || (modalInput.roomType === "") || (modalInput.roomNum === 0)) {
+      setError("Please enter guest number, room type and room number");
+      setTimeout(() => { setError(""); }, 2000);
+    } else {
+      isInputValid = true;
+    }
+
+    //date validation check
+    if (modalInput.checkInDate <= modalInput.checkOutDate) {
+      isDateValid = true;
+    } else {
+      console.log(modalInput.checkInDate <= modalInput.checkOutDate);
+      setError("Check-out date must be bigger than Check-in date");
+      setTimeout(() => { setError(""); }, 2000);
+    }
+
+    if (isInputValid && isDateValid) {
+      //get the date and hotel id from localstorage
+      if (localStorage.hasOwnProperty("reservation")) {
+        const reservationData = JSON.parse(localStorage.getItem("reservation"));
+        //hotelId, roomType, check-in date match
+        if (reservationData.some(elem => (
+          (elem.hotelId === modalInput.hotelId) &&
+          (elem.roomType === modalInput.roomType) &&
+          (elem.checkInDate.substring(0, 10).replaceAll("-", "/") === e.target[0].value)))) {
+          setError("The room is not available :( Please try different room or date.");
+          setTimeout(() => { setError(""); }, 2000);
+        } else {
+          console.log("available. show price");
+          //show price
+          showPrice();
+          //show reserve button
+          setAvailFlg(true);
+        }
       } else {
-        console.log("available. show price");
+        console.log("first time adding localstorage. available. show price");
         //show price
-
+        showPrice();
         //show reserve button
         setAvailFlg(true);
       }
-    } else {
-      console.log("first time adding localstorage. available. show price");
-      //show price
-
-      //show reserve button
-      setAvailFlg(true);
     }
   };
 
@@ -84,6 +133,18 @@ const AvailModal = () => {
     setModalStyle({ "display": "none" });
     //hide reserve button
     setAvailFlg(false);
+    //hide price panel
+    setCalcPanel({ "display": "none" });
+    //clear input
+    setModalInput({
+      hotelId: propertyDetail.hotelId,
+      checkInDate: addDays(new Date(), 1),
+      checkOutDate: addDays(new Date(), 2),
+      adultNum: 0,
+      childrenNum: 0,
+      roomType: "",
+      roomNum: 0,
+    });
   };
 
   return (
@@ -108,6 +169,7 @@ const AvailModal = () => {
                   onChange={date => setModalInput({ ...modalInput, checkInDate: date })}
                   selected={modalInput.checkInDate}
                   dateFormat="yyyy/MM/dd"
+                  minDate={addDays(new Date(), 1)}
                   monthsShown={2} />
               </FormControl>
 
@@ -117,13 +179,13 @@ const AvailModal = () => {
                   className="checkOut"
                   onChange={date => setModalInput({ ...modalInput, checkOutDate: date })}
                   selected={modalInput.checkOutDate}
+                  dateFormat="yyyy/MM/dd"
+                  minDate={addDays(new Date(), 2)}
                   monthsShown={2} />
               </FormControl>
-            </div>
 
-            <FormControl>
-              <FormLabel>Guests</FormLabel>
-              <div className="guestNumInput">
+
+              <FormControl>
                 <FormLabel fontSize="md">Adults</FormLabel>
                 <NumberInput
                   min={0}
@@ -137,7 +199,8 @@ const AvailModal = () => {
                     <NumberDecrementStepper />
                   </NumberInputStepper>
                 </NumberInput>
-
+              </FormControl>
+              <FormControl>
                 <FormLabel fontSize="md">Children</FormLabel>
                 <NumberInput
                   min={0}
@@ -151,8 +214,8 @@ const AvailModal = () => {
                     <NumberDecrementStepper />
                   </NumberInputStepper>
                 </NumberInput>
-              </div>
-            </FormControl>
+              </FormControl>
+            </div>
 
             <FormControl>
               <FormLabel>Rooms</FormLabel>
@@ -189,6 +252,15 @@ const AvailModal = () => {
                 onClick={reserve}>Reserve</Button>)}
             </div>
           </form>
+
+          <div className="pricePanel" style={calcPanel}>
+            <Text fontSize="xl">Price</Text>
+            <p>Room : $200 x {total.nights} nights</p>
+            <p>Number of rooms : {total.roomNum}</p>
+            <Divider bg="lightgray" />
+            <p className="total"><span>Total</span> : ${total.total}</p>
+          </div>
+
         </div>
       </div>
 
