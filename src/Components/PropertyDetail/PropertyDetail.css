@@ -30,6 +30,10 @@
   margin: 1rem;
 }
 
+.PropertyDetailContainer .title .chakra-button svg {
+  margin-right: 0.5rem;
+}
+
 .PropertyDetailContainer .address {
   text-align: center;
   margin-bottom: 1rem;

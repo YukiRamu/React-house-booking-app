@@ -1,4 +1,4 @@
-import React, { useReducer, createContext, useEffect } from "react";
+import React, { useReducer, createContext, useState, useEffect } from "react";
 import PropertyDetailReducer from "../Reducer/PropertyDetailReducer";
 import axios from "axios";
 
@@ -6,22 +6,10 @@ const PropertyDetailContext = createContext();
 
 const PropertyDetailProvider = (props) => {
 
-  /* PropertyDetailReducer */
-  // const initialState = {
-  //   property: [],
-  //   transportation: [],
-  //   host: [],
-  //   roomImg: [],
-  //   reservation: [],
-  //   price: {
-  //     King: 150,
-  //     Queen: 120,
-  //     Sofa: 100,
-  //     Other: 200
-  //   },
-  //   hotelId: "216337", //passed from HotelListCard.js : testing purpose
-  // };
+  /* Global Context */
+  const [rsvCompFlg, setRsvCompFlg] = useState(false);
 
+  /* PropertyDetailReducer */
   const [propertyDetail, dispatchPropertyDetail] = useReducer(PropertyDetailReducer, [], () => {
     const localReservationData = localStorage.getItem("reservation");
     return {
@@ -136,6 +124,8 @@ const PropertyDetailProvider = (props) => {
         value={{
           propertyDetail,
           dispatchPropertyDetail,
+          rsvCompFlg,
+          setRsvCompFlg
         }}
       >
         {props.children}
