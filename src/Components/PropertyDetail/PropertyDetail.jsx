@@ -17,8 +17,6 @@ const PropertyDetail = () => {
   const { propertyDetail, rsvCompFlg } = useContext(PropertyDetailContext);
 
   console.log(propertyDetail);
-  console.log(rsvCompFlg)
-
   return (
     <>
       {(propertyDetail.roomImg.length !== 0) && (Object.keys(propertyDetail.property).length !== 0) ? (
