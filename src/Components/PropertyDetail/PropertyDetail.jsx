@@ -1,11 +1,8 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from "react-router-dom";
 import {
-  Text, Button, Spinner, Divider, Box, Grid, GridItem, Avatar, AvatarBadge, AvatarGroup, FormControl, FormLabel, Input, Select, FormErrorMessage, FormHelperText, NumberInput, NumberInputField,
-  NumberInputStepper, NumberIncrementStepper,
-  NumberDecrementStepper,
+  Text, Button, Spinner, Divider, Box, Grid, GridItem
 } from "@chakra-ui/react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaHeart } from "react-icons/fa";
 import { MdSmokeFree } from "react-icons/md";
@@ -13,14 +10,14 @@ import { IoFlowerOutline, IoFlowerSharp, IoBedSharp, IoLocationSharp } from "rea
 import "./PropertyDetail.css";
 import PropertyDetailContext from '../../Context/PropertyDetailContext';
 import AvailModal from '../AvailabilityCheckModal/AvailModal';
+import RsvCompModal from '../RsvCompModal/RsvCompModal';
 
 const PropertyDetail = () => {
 
-  const { propertyDetail, dispatchPropertyDetail } = useContext(PropertyDetailContext);
+  const { propertyDetail, rsvCompFlg } = useContext(PropertyDetailContext);
 
-  //private state hook for modal pop up
-  const [modalStyle, setModalStyle] = useState({ "display": "block" });
   console.log(propertyDetail);
+  console.log(rsvCompFlg)
 
   return (
     <>
@@ -142,6 +139,9 @@ const PropertyDetail = () => {
 
           {/* ===== Modal pop up for availability check =====  */}
           <AvailModal />
+
+          {/* ===== Modal pop up for reservation complete === */}
+          {rsvCompFlg && (<RsvCompModal />)}
 
         </div>
       ) :

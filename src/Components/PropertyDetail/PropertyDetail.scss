@@ -17,6 +17,11 @@
     flex-direction: row;
     align-items: center;
     margin: 1rem;
+    .chakra-button {
+      svg {
+        margin-right: 0.5rem;
+      }
+    }
   }
   .address {
     text-align: center;

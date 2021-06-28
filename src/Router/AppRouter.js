@@ -17,6 +17,7 @@ const AppRouter = () => {
             <Header />
             <Switch>
               <Route path="/" exact render={(props) => <Home {...props} />} />
+              <Route path="/home" component={Home} />
               <Route path="/hotellists" component={HotelLists} />
               <Route path="/detail" component={PropertyDetail} />
             </Switch>

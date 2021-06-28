@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import {
-  Text, Button, Spinner, Divider, Box, Grid, GridItem, Avatar, AvatarBadge, AvatarGroup, FormControl, FormLabel, Input, Select, FormErrorMessage, FormHelperText, NumberInput, NumberInputField,
+  Text, Button, FormControl, FormLabel, Input, Select, FormErrorMessage, FormHelperText, NumberInput, NumberInputField,
   NumberInputStepper, NumberIncrementStepper,
   NumberDecrementStepper,
 } from "@chakra-ui/react";
@@ -13,13 +13,13 @@ import "./AvailModal.css";
 
 const AvailModal = () => {
 
-  const { propertyDetail, dispatchPropertyDetail } = useContext(PropertyDetailContext);
+  const { propertyDetail, dispatchPropertyDetail, setRsvCompFlg } = useContext(PropertyDetailContext);
   console.log(propertyDetail);
 
   //private state hook for modal pop up
   const [error, setError] = useState("");
-  const [openFlg, setOpenFlg] = useState(false);
-  const [modalStyle, setModalStyle] = useState({ "display": "block" });
+  const [availFlg, setAvailFlg] = useState(false);
+  const [modalStyle, setModalStyle] = useState({ "display": "none" });
   const [modalInput, setModalInput] = useState({
     hotelId: propertyDetail.hotelId,
     checkInDate: new Date(),
@@ -47,7 +47,6 @@ const AvailModal = () => {
     //get the date and hotel id from localstorage
     if (localStorage.hasOwnProperty("reservation")) {
       const reservationData = JSON.parse(localStorage.getItem("reservation"));
-
       //hotelId, roomType, check-in date match
       if (reservationData.some(elem => (
         (elem.hotelId === modalInput.hotelId) &&
@@ -58,14 +57,16 @@ const AvailModal = () => {
       } else {
         console.log("available. show price");
         //show price
+
         //show reserve button
-        setOpenFlg(true);
+        setAvailFlg(true);
       }
     } else {
       console.log("first time adding localstorage. available. show price");
       //show price
+
       //show reserve button
-      setOpenFlg(true);
+      setAvailFlg(true);
     }
   };
 
@@ -77,6 +78,12 @@ const AvailModal = () => {
       type: "RESERVE",
       payload: modalInput,
     });
+    //open completion page
+    setRsvCompFlg(true);
+    //close this modal
+    setModalStyle({ "display": "none" });
+    //hide reserve button
+    setAvailFlg(false);
   };
 
   return (
@@ -178,10 +185,9 @@ const AvailModal = () => {
 
             <div className="btns">
               <Button type="submit" className="submitBtn">Check availability</Button>
-              {openFlg && (<Button type="button" className="checkOutBtn"
+              {availFlg && (<Button type="button" className="checkOutBtn"
                 onClick={reserve}>Reserve</Button>)}
             </div>
-
           </form>
         </div>
       </div>
