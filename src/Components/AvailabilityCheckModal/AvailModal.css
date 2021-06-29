@@ -26,8 +26,8 @@
   width: 70vw;
   min-height: 80vh;
   border-radius: 3vw;
-  padding: 3rem;
-  overflow: auto;
+  padding: 2rem;
+  overflow-y: auto;
 }
 
 .modalContainer .modalContent p {
@@ -74,18 +74,21 @@
   margin-bottom: 1rem;
 }
 
-.modalContainer .modalContent form .chakra-form-control .react-datepicker__input-container input {
-  border: 0.1rem solid lightgrey;
+.modalContainer .modalContent form .chakra-form-control input {
+  border: 0.2rem solid lightgrey;
   border-radius: var(--chakra-radii-md);
   padding: 0.5rem;
 }
 
-.modalContainer .modalContent form .chakra-form-control .react-datepicker__input-container input:focus {
+.modalContainer .modalContent form .chakra-form-control input:focus {
   border-color: teal;
   outline: none;
 }
 
-.modalContainer .modalContent form .chakra-form-control .guestNumInput,
+.modalContainer .modalContent form .chakra-form-control .chakra-numberinput {
+  width: 50%;
+}
+
 .modalContainer .modalContent form .chakra-form-control .roomTypeInput {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -104,10 +107,21 @@
   margin-bottom: 1rem;
 }
 
+.modalContainer .modalContent form .chakra-form-control .roomTypeInput input,
+.modalContainer .modalContent form .chakra-form-control .roomTypeInput select {
+  border: 0.2rem solid lightgrey;
+}
+
+.modalContainer .modalContent form .chakra-form-control .roomTypeInput input:focus,
+.modalContainer .modalContent form .chakra-form-control .roomTypeInput select:focus {
+  border: 0.2rem solid teal;
+  outline: none;
+}
+
 .modalContainer .modalContent form .error {
   background: #f7c9d0;
   padding: 0.5rem 1rem;
-  color: #f00;
+  color: red;
   font-weight: bold;
 }
 
@@ -131,5 +145,23 @@
 .modalContainer .modalContent form .btns .checkOutBtn:hover {
   background-color: teal;
   color: white;
+}
+
+.modalContainer .modalContent .pricePanel {
+  border-radius: 3vw;
+  padding: 1rem 2rem;
+  margin: 2rem 0;
+  width: 50%;
+  -webkit-box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+}
+
+.modalContainer .modalContent .pricePanel .total {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.modalContainer .modalContent .pricePanel .total span {
+  color: palevioletred;
 }
 /*# sourceMappingURL=AvailModal.css.map */
