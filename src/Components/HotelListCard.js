@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { Box, Image, Badge } from "@chakra-ui/react";
+import { Box, Image } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import PropertyDetailContext from "../Context/PropertyDetailContext";
+import "./scss/HotelListCard.scss";
 
-const HotelListCard = ({ id, name, rating, total, price, imageUrl }) => {
+const HotelListCard = ({ id, name, starRating, total, price, imageUrl }) => {
   const { dispatchPropertyDetail } = useContext(PropertyDetailContext);
 
   return (
@@ -22,17 +23,14 @@ const HotelListCard = ({ id, name, rating, total, price, imageUrl }) => {
               payload: id,
             })
           }
-          maxW="sm"
           borderWidth="1px"
           borderRadius="lg"
           overflow="hidden"
+          className="cardContainer"
         >
           <Image src={imageUrl} alt="hotel image" />
-          <Box p="6">
+          <Box p="6" className="listCardContainer">
             <Box d="flex" alignItems="baseline">
-              <Badge borderRadius="full" px="2" colorScheme="teal">
-                New
-              </Badge>
               <Box
                 color="gray.500"
                 fontWeight="semibold"
@@ -63,11 +61,11 @@ const HotelListCard = ({ id, name, rating, total, price, imageUrl }) => {
                 .map((_, i) => (
                   <StarIcon
                     key={i}
-                    color={i < rating ? "teal.500" : "gray.300"}
+                    color={i < starRating ? "teal.500" : "gray.300"}
                   />
                 ))}
               <Box as="span" ml="2" color="gray.600" fontSize="sm">
-                {total} reviews
+                {total ? total : "0"} reviews
               </Box>
             </Box>
           </Box>

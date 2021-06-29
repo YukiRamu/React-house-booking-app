@@ -31,33 +31,91 @@ const Home = () => {
   const [myStartDate, setMyStartDate] = useState("");
   const [myEndDate, setMyEndDate] = useState("");
   const [showHotelList, setShowHotelList] = useState(false);
+  const [error, setError] = useState(false);
   const homeCtx = useContext(HomeContext);
   console.log(homeCtx);
 
+  //locations/search
   const getHotelData = () => {
+    // const options = {
+    //   method: "GET",
+    //   url: "https://hotels4.p.rapidapi.com/locations/search",
+    //   params: { query: inputValue, locale: "en_US" },
+    //   headers: {
+    //     "x-rapidapi-key": "b452ba0297msh7e5ae1d1fbc373dp1b412djsn1f1b5eaf3e46",
+    //     "x-rapidapi-host": "hotels4.p.rapidapi.com",
+    //   },
+    // };
+
+    // axios
+    //   .request(options)
+    //   .then((response) => {
+    //     console.log(response);
+    //     setDestination(response.data.suggestions[0].entities[0].destinationId);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //     setError(true);
+    //   });
+
     const options = {
       method: "GET",
       url: "https://hotels4.p.rapidapi.com/locations/search",
       params: { query: inputValue, locale: "en_US" },
       headers: {
-        "x-rapidapi-key": "b452ba0297msh7e5ae1d1fbc373dp1b412djsn1f1b5eaf3e46",
+        "x-rapidapi-key": "4af4b398efmsh099cf8a67a7411bp195ecejsn24b33af52ba2",
         "x-rapidapi-host": "hotels4.p.rapidapi.com",
       },
     };
 
     axios
       .request(options)
-      .then((response) => {
+      .then(function (response) {
         console.log(response);
         setDestination(response.data.suggestions[0].entities[0].destinationId);
       })
-      .catch((error) => {
+      .catch(function (error) {
         console.error(error);
+        setError(true);
       });
   };
 
+  //
   useEffect(() => {
     if (destination === "") return;
+
+    // const options = {
+    //   method: "GET",
+    //   url: "https://hotels4.p.rapidapi.com/properties/list",
+    //   params: {
+    //     adults1: "1",
+    //     pageNumber: "1",
+    //     destinationId: destination,
+    //     pageSize: "25",
+    //     checkOut: myEndDate,
+    //     checkIn: myStartDate,
+    //     sortOrder: "PRICE",
+    //     locale: "en_US",
+    //     currency: "USD",
+    //   },
+    //   headers: {
+    //     "x-rapidapi-key": "b452ba0297msh7e5ae1d1fbc373dp1b412djsn1f1b5eaf3e46",
+    //     "x-rapidapi-host": "hotels4.p.rapidapi.com",
+    //   },
+    // };
+
+    // axios
+    //   .request(options)
+    //   .then(function (response) {
+    //     console.log(response.data.data.body.searchResults);
+    //     homeCtx.dispatchHome({
+    //       type: "FETCH_SUCCESS",
+    //       payload: response.data.data.body.searchResults,
+    //     });
+    //   })
+    //   .catch(function (error) {
+    //     console.error(error);
+    //   });
 
     const options = {
       method: "GET",
@@ -74,7 +132,7 @@ const Home = () => {
         currency: "USD",
       },
       headers: {
-        "x-rapidapi-key": "b452ba0297msh7e5ae1d1fbc373dp1b412djsn1f1b5eaf3e46",
+        "x-rapidapi-key": "4af4b398efmsh099cf8a67a7411bp195ecejsn24b33af52ba2",
         "x-rapidapi-host": "hotels4.p.rapidapi.com",
       },
     };
@@ -82,7 +140,7 @@ const Home = () => {
     axios
       .request(options)
       .then(function (response) {
-        console.log(response.data.data.body.searchResults);
+        console.log(response.data);
         homeCtx.dispatchHome({
           type: "FETCH_SUCCESS",
           payload: response.data.data.body.searchResults,
@@ -107,7 +165,16 @@ const Home = () => {
         setShowHotelList={setShowHotelList}
       />
       {showHotelList ? (
-        <HotelLists />
+        <div>
+          {inputValue && (
+            <div className="placeOfStay">
+              {inputValue && <h1>Stays in {inputValue.toUpperCase()}</h1>}
+            </div>
+          )}
+          <div className="allCardContainer">
+            <HotelLists inputValue={inputValue} />
+          </div>
+        </div>
       ) : (
         <div>
           <div
