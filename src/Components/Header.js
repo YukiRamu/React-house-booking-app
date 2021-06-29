@@ -21,7 +21,7 @@ const Header = () => {
         <Row>
           <Col>
             <Link to="/">
-              <img className="logo" src={logo} />
+              <img className="logo" src={logo} alt="logo" />
             </Link>
           </Col>
           <Col>

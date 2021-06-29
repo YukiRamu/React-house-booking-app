@@ -1,6 +1,5 @@
 import React, { useContext, useState, useRef } from "react";
 import HomeContext from "../Context/HomeContext";
-import HotelLists from "./HotelLists";
 import "./scss/BookModal.scss";
 import {
   Button,
@@ -15,7 +14,6 @@ import {
 import { useDisclosure } from "@chakra-ui/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Link } from "react-router-dom";
 
 const BookModal = ({
   setInputValue,
@@ -29,19 +27,29 @@ const BookModal = ({
   setShowHotelList,
 }) => {
   const inputRef = useRef(null);
-  // const [startDate, setStartDate] = useState(new Date());
-  // const [endDate, setEndDate] = useState(new Date());
   const { isOpen, onOpen, onClose } = useDisclosure();
   const homeCtx = useContext(HomeContext);
+  const [error, setError] = useState(false);
 
   const startDateChange = () => {
-    //console.log(document.getElementById("myStartDate").value);
     setMyStartDate(document.getElementById("myStartDate").value);
   };
 
   const endDateChange = () => {
-    // console.log(document.getElementById("myEndDate").value);
     setMyEndDate(document.getElementById("myEndDate").value);
+  };
+
+  const sample = () => {
+    const b = inputRef.current.value;
+    if (b === "") {
+      setError(true);
+    } else {
+      homeCtx.dispatchHome({
+        type: "CLOSE",
+      });
+      getHotelData();
+      setShowHotelList(true);
+    }
   };
 
   return (
@@ -51,14 +59,17 @@ const BookModal = ({
         <ModalContent>
           <ModalHeader>Book a hotel</ModalHeader>
           <ModalCloseButton
-            onClick={() =>
+            onClick={() => {
               homeCtx.dispatchHome({
                 type: "CLOSE",
-              })
-            }
+              });
+              setError(false);
+            }}
           />
           <ModalBody>
             <input
+              id="location"
+              className="border"
               type="text"
               placeholder="Location"
               ref={inputRef}
@@ -66,46 +77,47 @@ const BookModal = ({
                 setInputValue(inputRef.current.value);
               }}
             />
-            <div>
-              <span>Check in</span>
-              <DatePicker
-                id="myStartDate"
-                selected={startDate}
-                dateFormat="yyyy-MM-dd"
-                onChange={(date) => {
-                  {
-                    setStartDate(date);
-                    startDateChange(date);
-                  }
-                }}
-              />
+            <div className="chackInOutContainer">
+              <div className="checkInContainer">
+                <span>Check in</span>
+                <DatePicker
+                  className="border"
+                  id="myStartDate"
+                  selected={startDate}
+                  dateFormat="yyyy-MM-dd"
+                  onChange={(date) => {
+                    {
+                      setStartDate(date);
+                      startDateChange(date);
+                    }
+                  }}
+                />
+              </div>
+              <div className="checkOutContainer">
+                <span>Check out</span>
+                <DatePicker
+                  className="border"
+                  id="myEndDate"
+                  selected={endDate}
+                  dateFormat="yyyy-MM-dd"
+                  onChange={(date) => {
+                    {
+                      setEndDate(date);
+                      endDateChange(date);
+                    }
+                  }}
+                />
+              </div>
             </div>
-            <div>
-              <span>Check out</span>
-              <DatePicker
-                id="myEndDate"
-                selected={endDate}
-                dateFormat="yyyy-MM-dd"
-                onChange={(date) => {
-                  {
-                    setEndDate(date);
-                    endDateChange(date);
-                  }
-                }}
-              />
+            <div className="errorMsg">
+              {error ? <p>Something went wrong. Please search again!</p> : ""}
             </div>
           </ModalBody>
           <ModalFooter>
             <Button
               variant="ghost"
               onClick={() => {
-                {
-                  homeCtx.dispatchHome({
-                    type: "CLOSE",
-                  });
-                  getHotelData();
-                  setShowHotelList(true);
-                }
+                sample();
               }}
             >
               Search

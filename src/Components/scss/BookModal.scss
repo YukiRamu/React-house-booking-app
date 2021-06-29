@@ -11,3 +11,41 @@
 input[type="text"]:focus {
   outline: 0;
 }
+
+#location {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.chackInOutContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.checkInContainer {
+  display: flex;
+  flex-direction: column;
+  padding-right: 1rem;
+}
+
+.checkOutContainer {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+}
+
+#myStartDate {
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+#myEndDate {
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.errorMsg {
+  padding: 1rem;
+  color: red;
+}
