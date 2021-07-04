@@ -21,21 +21,30 @@ const Header = () => {
         <Row>
           <Col>
             <Link to="/">
-              <img className="logo" src={logo} alt="logo" />
+              <img
+                className="logo"
+                src={logo}
+                alt="logo"
+                onClick={() =>
+                  homeCtx.dispatchHome({
+                    type: "OPEN_HOME",
+                  })
+                }
+              />
             </Link>
           </Col>
           <Col>
             <div>
-              <input
-                onClick={() =>
+              <div
+                onClick={() => {
                   homeCtx.dispatchHome({
                     type: "OPEN",
-                  })
-                }
+                  });
+                }}
                 className="input"
-                placeholder="Search"
-                type="search"
-              />
+              >
+                <span>Search</span>
+              </div>
               <FaSearch className="searchIcon" />
             </div>
           </Col>

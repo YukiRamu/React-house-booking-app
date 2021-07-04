@@ -8,6 +8,7 @@ export const HomeContextProvider = (props) => {
   const initialState = {
     openModal: false,
     fetchedData: "",
+    openHome: true,
   };
 
   const [state, dispatchHome] = useReducer(HomeReducer, initialState);
@@ -17,6 +18,7 @@ export const HomeContextProvider = (props) => {
       value={{
         fetchedData: state.fetchedData,
         openModal: state.openModal,
+        openHome: state.openHome,
         dispatchHome: dispatchHome,
       }}
     >

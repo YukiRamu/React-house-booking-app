@@ -6,6 +6,10 @@ const HomeReducer = (state, action) => {
       return { openModal: true };
     case "CLOSE":
       return { openModal: false };
+    case "OPEN_HOME":
+      return { openHome: true };
+    case "CLOSE_HOME":
+      return { openHome: false };
   }
 };
 
