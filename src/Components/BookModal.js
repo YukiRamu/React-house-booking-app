@@ -1,5 +1,6 @@
 import React, { useContext, useState, useRef } from "react";
 import HomeContext from "../Context/HomeContext";
+import HotelLists from "./HotelLists";
 import "./scss/BookModal.scss";
 import {
   Button,
@@ -14,6 +15,7 @@ import {
 import { useDisclosure } from "@chakra-ui/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import HotelListCard from "./HotelListCard";
 
 const BookModal = ({
   setInputValue,
@@ -25,6 +27,7 @@ const BookModal = ({
   setMyStartDate,
   setMyEndDate,
   setShowHotelList,
+  inputValue,
 }) => {
   const inputRef = useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,7 +42,7 @@ const BookModal = ({
     setMyEndDate(document.getElementById("myEndDate").value);
   };
 
-  const sample = () => {
+  const checkInput = () => {
     const b = inputRef.current.value;
     if (b === "") {
       setError(true);
@@ -48,7 +51,6 @@ const BookModal = ({
         type: "CLOSE",
       });
       getHotelData();
-      setShowHotelList(true);
     }
   };
 
@@ -62,6 +64,9 @@ const BookModal = ({
             onClick={() => {
               homeCtx.dispatchHome({
                 type: "CLOSE",
+              });
+              homeCtx.dispatchHome({
+                type: "OPEN_HOME",
               });
               setError(false);
             }}
@@ -117,7 +122,7 @@ const BookModal = ({
             <Button
               variant="ghost"
               onClick={() => {
-                sample();
+                checkInput();
               }}
             >
               Search

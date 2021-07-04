@@ -3,7 +3,7 @@ import axios from "axios";
 import BookModal from "./BookModal";
 import HotelLists from "./HotelLists";
 import HomeContext from "../Context/HomeContext";
-import { Button } from "@chakra-ui/react";
+import { Button, ListItem, Spinner } from "@chakra-ui/react";
 import "./scss/Home.scss";
 
 //画像はimportではなくstringでパスを変数に代入するやり方が良い。
@@ -24,7 +24,7 @@ const experiences = "/image/experiences.jpg";
 const tryhosting = "/image/tryhosting.jpg";
 
 const Home = () => {
-  const [inputValue, setInputValue] = useState(new Date());
+  const [inputValue, setInputValue] = useState("");
   const [destination, setDestination] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -163,19 +163,9 @@ const Home = () => {
         setMyStartDate={setMyStartDate}
         setMyEndDate={setMyEndDate}
         setShowHotelList={setShowHotelList}
+        inputValue={inputValue}
       />
-      {showHotelList ? (
-        <div>
-          {inputValue && (
-            <div className="placeOfStay">
-              {inputValue && <h1>Stays in {inputValue.toUpperCase()}</h1>}
-            </div>
-          )}
-          <div className="allCardContainer">
-            <HotelLists inputValue={inputValue} />
-          </div>
-        </div>
-      ) : (
+      {homeCtx.openHome || homeCtx.openModal ? (
         <div>
           <div
             className="mainImage"
@@ -319,9 +309,48 @@ const Home = () => {
             </div>
           </div>
         </div>
+      ) : (
+        <div>
+          {inputValue && (
+            <div className="placeOfStay">
+              <h1>Stays in {inputValue.toUpperCase()}</h1>
+            </div>
+          )}
+          <div className="allCardContainer">
+            <HotelLists inputValue={inputValue} />
+          </div>
+        </div>
       )}
     </>
   );
 };
 
 export default Home;
+
+// (
+//   <div>
+//     {inputValue && (
+//       <div className="placeOfStay">
+//         <h1>Stays in {inputValue.toUpperCase()}</h1>
+//       </div>
+//     )}
+//     <div className="allCardContainer">
+//       <HotelLists inputValue={inputValue} />
+//     </div>
+//   </div>
+// )
+// ? (
+//   destination === ""
+// ) : (
+//   <div style={{ minHeight: "500px" }}>
+//     {console.log(homeCtx.fetchedData)}
+//     <p className="loading">Loading... Hang on a sec...</p>
+//     <Spinner
+//       thickness="4px"
+//       speed="0.65s"
+//       emptyColor="gray.200"
+//       color="teal.500"
+//       size="xl"
+//     />
+//   </div>
+// )

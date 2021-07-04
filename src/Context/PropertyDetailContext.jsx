@@ -5,28 +5,33 @@ import axios from "axios";
 const PropertyDetailContext = createContext();
 
 const PropertyDetailProvider = (props) => {
-
   /* Global Context */
   const [rsvCompFlg, setRsvCompFlg] = useState(false);
 
   /* PropertyDetailReducer */
-  const [propertyDetail, dispatchPropertyDetail] = useReducer(PropertyDetailReducer, [], () => {
-    const localReservationData = localStorage.getItem("reservation");
-    return {
-      property: [],
-      transportation: [],
-      host: [],
-      roomImg: [],
-      reservation: localReservationData ? JSON.parse(localReservationData) : [],
-      price: {
-        King: 150,
-        Queen: 120,
-        Sofa: 100,
-        Other: 200
-      },
-      hotelId: "216337", //passed from HotelListCard.js : testing purpose
-    };
-  });
+  const [propertyDetail, dispatchPropertyDetail] = useReducer(
+    PropertyDetailReducer,
+    [],
+    () => {
+      const localReservationData = localStorage.getItem("reservation");
+      return {
+        property: [],
+        transportation: [],
+        host: [],
+        roomImg: [],
+        reservation: localReservationData
+          ? JSON.parse(localReservationData)
+          : [],
+        price: {
+          King: 150,
+          Queen: 120,
+          Sofa: 100,
+          Other: 200,
+        },
+        hotelId: "216337", //passed from HotelListCard.js : testing purpose
+      };
+    }
+  );
 
   /* Get Hotel Detail */
   const detailParam = {
@@ -34,7 +39,8 @@ const PropertyDetailProvider = (props) => {
     url: "https://hotels4.p.rapidapi.com/properties/get-details",
     params: { id: propertyDetail.hotelId },
     headers: {
-      "x-rapidapi-key": "c9968e2987mshd0b8344da831c28p10df23jsn55a0df610ca7",
+      //"x-rapidapi-key": "c9968e2987mshd0b8344da831c28p10df23jsn55a0df610ca7",
+      "x-rapidapi-key": "4af4b398efmsh099cf8a67a7411bp195ecejsn24b33af52ba2",
       "x-rapidapi-host": "hotels4.p.rapidapi.com",
     },
   };
@@ -60,7 +66,10 @@ const PropertyDetailProvider = (props) => {
 
   /* Local Storage */
   useEffect(() => {
-    localStorage.setItem("reservation", JSON.stringify(propertyDetail.reservation));
+    localStorage.setItem(
+      "reservation",
+      JSON.stringify(propertyDetail.reservation)
+    );
   }, [propertyDetail.reservation]);
 
   /* Get Review */
@@ -125,7 +134,7 @@ const PropertyDetailProvider = (props) => {
           propertyDetail,
           dispatchPropertyDetail,
           rsvCompFlg,
-          setRsvCompFlg
+          setRsvCompFlg,
         }}
       >
         {props.children}
