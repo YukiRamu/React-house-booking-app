@@ -57,10 +57,11 @@ const AvailModal = () => {
 
   const showPrice = () => {
     //1 day = 86400000 ms
+    console.log(Math.ceil((modalInput.checkOutDate - modalInput.checkInDate) / 86400000));
     setTotal({
-      nights: (Math.ceil(modalInput.checkOutDate - modalInput.checkInDate)) / 86400000,
+      nights: Math.ceil((modalInput.checkOutDate - modalInput.checkInDate) / 86400000),
       roomNum: modalInput.roomNum,
-      total: ((modalInput.checkOutDate - modalInput.checkInDate) / 86400000) * 200 * modalInput.roomNum
+      total: (Math.ceil((modalInput.checkOutDate - modalInput.checkInDate) / 86400000)) * 200 * modalInput.roomNum
     });
     setCalcPanel({ "display": "block" });
   };
