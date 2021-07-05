@@ -28,7 +28,7 @@ const PropertyDetailProvider = (props) => {
           Sofa: 100,
           Other: 200,
         },
-        hotelId: "216337", //passed from HotelListCard.js : testing purpose
+        hotelId: "",
       };
     }
   );
@@ -39,7 +39,6 @@ const PropertyDetailProvider = (props) => {
     url: "https://hotels4.p.rapidapi.com/properties/get-details",
     params: { id: propertyDetail.hotelId },
     headers: {
-      //"x-rapidapi-key": "c9968e2987mshd0b8344da831c28p10df23jsn55a0df610ca7",
       "x-rapidapi-key": "4af4b398efmsh099cf8a67a7411bp195ecejsn24b33af52ba2",
       "x-rapidapi-host": "hotels4.p.rapidapi.com",
     },
@@ -66,38 +65,8 @@ const PropertyDetailProvider = (props) => {
 
   /* Local Storage */
   useEffect(() => {
-    localStorage.setItem(
-      "reservation",
-      JSON.stringify(propertyDetail.reservation)
-    );
+    localStorage.setItem("reservation", JSON.stringify(propertyDetail.reservation));
   }, [propertyDetail.reservation]);
-
-  /* Get Review */
-  // const reviewParam = {
-  //   method: 'GET',
-  //   url: 'https://hotels4.p.rapidapi.com/reviews/list',
-  //   params: { id: '634418464', page: '1', loc: 'en_US' }, //will get id from Yumi
-  //   headers: {
-  //     'x-rapidapi-key': 'c9968e2987mshd0b8344da831c28p10df23jsn55a0df610ca7',
-  //     'x-rapidapi-host': 'hotels4.p.rapidapi.com'
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   axios
-  //     .request(reviewParam)
-  //     .then((response) => {
-  //       console.log(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error(`Failed to fetch review data. Error= ${error}`);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   //get state from Yumi and pass it to the reducer
-  //   dispatchPropertyDetail({ type: "SHOW_PROPERTY", payload: "state" });
-  // }, []);
 
   /* Fake Property Images */
   const ImgAPI = {

@@ -1,8 +1,5 @@
 const PropertyDetailReducer = (state, action) => {
 
-  console.log(action.payload);
-  console.log(state)
-
   switch (action.type) {
     case "IMG_FETCH_SUCCESS":
       return {

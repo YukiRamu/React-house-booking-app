@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react';
-import { Link } from "react-router-dom";
+import React, { useContext } from 'react';
 import {
   Text, Button, Spinner, Divider, Box, Grid, GridItem
 } from "@chakra-ui/react";
@@ -16,7 +15,6 @@ const PropertyDetail = () => {
 
   const { propertyDetail, rsvCompFlg } = useContext(PropertyDetailContext);
 
-  console.log(propertyDetail);
   return (
     <>
       {(propertyDetail.roomImg.length !== 0) && (Object.keys(propertyDetail.property).length !== 0) ? (

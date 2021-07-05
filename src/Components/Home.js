@@ -33,7 +33,6 @@ const Home = () => {
   const [showHotelList, setShowHotelList] = useState(false);
   const [error, setError] = useState(false);
   const homeCtx = useContext(HomeContext);
-  console.log(homeCtx);
 
   //locations/search
   const getHotelData = () => {
