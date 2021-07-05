@@ -15,7 +15,6 @@ import "./AvailModal.css";
 const AvailModal = () => {
 
   const { propertyDetail, dispatchPropertyDetail, setRsvCompFlg } = useContext(PropertyDetailContext);
-  console.log(propertyDetail);
 
   //private state hook for modal pop up
   const [error, setError] = useState("");
@@ -57,9 +56,9 @@ const AvailModal = () => {
   };
 
   const showPrice = () => {
-    console.log(modalInput.checkOutDate - modalInput.checkInDate); //1 day = 86400000 ms
+    //1 day = 86400000 ms
     setTotal({
-      nights: (modalInput.checkOutDate - modalInput.checkInDate) / 86400000,
+      nights: (Math.ceil(modalInput.checkOutDate - modalInput.checkInDate)) / 86400000,
       roomNum: modalInput.roomNum,
       total: ((modalInput.checkOutDate - modalInput.checkInDate) / 86400000) * 200 * modalInput.roomNum
     });
@@ -68,8 +67,6 @@ const AvailModal = () => {
 
   const checkAvailability = (e) => {
     e.preventDefault();
-    console.log("e is ", e);
-    console.log(modalInput);
 
     let isInputValid = false;
     let isDateValid = false;
@@ -86,7 +83,6 @@ const AvailModal = () => {
     if (modalInput.checkInDate <= modalInput.checkOutDate) {
       isDateValid = true;
     } else {
-      console.log(modalInput.checkInDate <= modalInput.checkOutDate);
       setError("Check-out date must be bigger than Check-in date");
       setTimeout(() => { setError(""); }, 2000);
     }
@@ -103,14 +99,12 @@ const AvailModal = () => {
           setError("The room is not available :( Please try different room or date.");
           setTimeout(() => { setError(""); }, 2000);
         } else {
-          console.log("available. show price");
           //show price
           showPrice();
           //show reserve button
           setAvailFlg(true);
         }
       } else {
-        console.log("first time adding localstorage. available. show price");
         //show price
         showPrice();
         //show reserve button
@@ -121,7 +115,6 @@ const AvailModal = () => {
 
   const reserve = (e) => {
     e.preventDefault();
-    console.log("reserve", modalInput);
     //dispatch
     dispatchPropertyDetail({
       type: "RESERVE",
@@ -183,7 +176,6 @@ const AvailModal = () => {
                   minDate={addDays(new Date(), 2)}
                   monthsShown={2} />
               </FormControl>
-
 
               <FormControl>
                 <FormLabel fontSize="md">Adults</FormLabel>

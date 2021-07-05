@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext} from 'react';
 import { Text, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { ImCross, ImSmile } from "react-icons/im";
@@ -8,7 +8,7 @@ import "./RsvCompModal.css";
 
 const RsvCompModal = () => {
 
-  const { setRsvCompFlg, propertyDetail } = useContext(PropertyDetailContext);
+  const { setRsvCompFlg } = useContext(PropertyDetailContext);
 
   const closeModal = () => {
     setRsvCompFlg(false);
